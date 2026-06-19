@@ -1,0 +1,333 @@
+import React, { useState, useMemo } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
+import { Star, ShieldCheck, MapPin, SlidersHorizontal, RefreshCw } from 'lucide-react';
+import { useBusinessStore } from '../store/useBusinessStore';
+import { BUSINESS_CATEGORIES } from '../utils/mockData';
+
+export const Businesses: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { businesses } = useBusinessStore();
+
+  // URL search params
+  const categoryParam = searchParams.get('category') || '';
+  const searchParam = searchParams.get('q') || '';
+  const locationParam = searchParams.get('l') || '';
+
+  // Local filter states
+  const [selectedCategory, setSelectedCategory] = useState(categoryParam);
+  const [selectedLocation, setSelectedLocation] = useState(locationParam);
+  const [minRating, setMinRating] = useState<number>(0);
+  const [tierFilter, setTierFilter] = useState<string>('');
+
+  // Sync state from URL
+  React.useEffect(() => {
+    if (categoryParam) setSelectedCategory(categoryParam);
+    if (locationParam) setSelectedLocation(locationParam);
+  }, [categoryParam, locationParam]);
+
+  // List of unique locations from mock data
+  const locations = useMemo(() => {
+    const locs = businesses.map(b => b.location.split(',')[0]);
+    return Array.from(new Set(locs));
+  }, [businesses]);
+
+  // Reset filters
+  const handleReset = () => {
+    setSelectedCategory('');
+    setSelectedLocation('');
+    setMinRating(0);
+    setTierFilter('');
+    setSearchParams({});
+  };
+
+  // Filter business listings
+  const filteredBusinesses = useMemo(() => {
+    return businesses.filter((biz) => {
+      // Category filter
+      if (selectedCategory && biz.category !== selectedCategory) return false;
+
+      // Location filter
+      if (selectedLocation && !biz.location.toLowerCase().includes(selectedLocation.toLowerCase())) return false;
+
+      // Search keyword filter (name, description, services list)
+      if (searchParam) {
+        const keyword = searchParam.toLowerCase();
+        const matchesName = biz.name.toLowerCase().includes(keyword);
+        const matchesDesc = biz.description.toLowerCase().includes(keyword);
+        const matchesServices = biz.services.some(s => s.toLowerCase().includes(keyword));
+        if (!matchesName && !matchesDesc && !matchesServices) return false;
+      }
+
+      // Min rating filter
+      if (biz.rating < minRating) return false;
+
+      // Subscription Tier filter
+      if (tierFilter && biz.tier !== tierFilter) return false;
+
+      return true;
+    });
+  }, [businesses, selectedCategory, selectedLocation, searchParam, minRating, tierFilter]);
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      
+      {/* Page Header */}
+      <div className="mb-8">
+        <span className="text-xs font-bold text-brand-orange uppercase tracking-widest">Local Directory</span>
+        <h1 className="text-3xl font-extrabold text-slate-900 mt-1">Explore Local Businesses</h1>
+        <p className="text-sm text-slate-500 mt-2">
+          Discover grocery stores, medical outlets, restaurants, showrooms, and hardware shops in your neighborhood.
+        </p>
+      </div>
+
+      {/* Main filter-list layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
+        {/* Left Column: Filter Sidebar */}
+        <div className="lg:col-span-1 bg-white border border-slate-200 rounded-xl p-5 shadow-sm h-fit sticky top-24">
+          <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-5">
+            <span className="font-bold text-slate-800 flex items-center gap-1.5 text-sm uppercase tracking-wider">
+              <SlidersHorizontal className="w-4.5 h-4.5 text-brand-orange" /> Filters
+            </span>
+            <button
+              onClick={handleReset}
+              className="text-xs text-slate-400 hover:text-brand-orange font-bold flex items-center gap-1"
+            >
+              <RefreshCw className="w-3 h-3" /> Reset
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            {/* Category Select Filter */}
+            <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2.5">
+                Business Category
+              </label>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full border border-slate-200 rounded-lg p-2.5 text-xs text-slate-700 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-orange/15"
+              >
+                <option value="">All Categories</option>
+                {BUSINESS_CATEGORIES.map((cat) => (
+                  <option key={cat.id} value={cat.name}>{cat.name}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Location Select Filter */}
+            <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2.5">
+                Location / City
+              </label>
+              <select
+                value={selectedLocation}
+                onChange={(e) => setSelectedLocation(e.target.value)}
+                className="w-full border border-slate-200 rounded-lg p-2.5 text-xs text-slate-700 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-orange/15"
+              >
+                <option value="">All Regions</option>
+                {locations.map((loc) => (
+                  <option key={loc} value={loc}>{loc}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Minimum Rating Filter */}
+            <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2.5">
+                Customer Rating
+              </label>
+              <div className="flex flex-col gap-1.5">
+                {[
+                  { value: 0, label: 'Show All Ratings' },
+                  { value: 4.5, label: '4.5 ★ & Above' },
+                  { value: 4.0, label: '4.0 ★ & Above' },
+                  { value: 3.5, label: '3.5 ★ & Above' }
+                ].map((rat) => (
+                  <button
+                    key={rat.value}
+                    onClick={() => setMinRating(rat.value)}
+                    className={`w-full text-left p-2 rounded-lg text-xs transition-colors flex justify-between items-center ${
+                      minRating === rat.value 
+                        ? 'bg-orange-50 text-brand-orange font-bold border border-orange-100' 
+                        : 'hover:bg-slate-50 text-slate-600 border border-transparent'
+                    }`}
+                  >
+                    <span>{rat.label}</span>
+                    {minRating === rat.value && <span>✓</span>}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Subscription filter */}
+            <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2.5">
+                Partner Tier
+              </label>
+              <div className="flex flex-col gap-1.5">
+                {[
+                  { value: '', label: 'All Partners' },
+                  { value: 'Platinum', label: 'Platinum Partners Only' },
+                  { value: 'Gold', label: 'Gold Partners Only' }
+                ].map((tier) => (
+                  <button
+                    key={tier.value}
+                    onClick={() => setTierFilter(tier.value)}
+                    className={`w-full text-left p-2 rounded-lg text-xs transition-colors flex justify-between items-center ${
+                      tierFilter === tier.value 
+                        ? 'bg-amber-50 text-amber-800 font-bold border border-amber-200' 
+                        : 'hover:bg-slate-50 text-slate-650 border border-transparent'
+                    }`}
+                  >
+                    <span>{tier.label}</span>
+                    {tierFilter === tier.value && <span>✓</span>}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Subscription Upgrade Promotional Card */}
+            <div className="border-t border-slate-100 pt-5 mt-2 bg-gradient-to-tr from-amber-50 to-orange-50 border border-orange-100/50 rounded-xl p-4 text-center">
+              <span className="text-[10px] uppercase font-bold text-brand-orange tracking-widest block mb-1">
+                Grow Your Business
+              </span>
+              <p className="text-[10px] text-slate-500 leading-normal mb-3">
+                List your brand, capture direct quote requests, and get priority placements.
+              </p>
+              <Link
+                to="/subscriptions"
+                className="bg-brand-orange hover:bg-orange-600 text-white font-bold text-[10px] uppercase py-2 px-3.5 rounded-lg shadow-sm block transition-all active:scale-95"
+              >
+                View Premium Plans
+              </Link>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Right Column: Listings grid */}
+        <div className="lg:col-span-3">
+          
+          {/* Result count stats banner */}
+          <div className="bg-white border border-slate-200 rounded-xl p-4 mb-6 flex justify-between items-center shadow-sm text-xs font-semibold text-slate-500">
+            <div>
+              Found <span className="text-slate-800 font-bold">{filteredBusinesses.length}</span> registered businesses
+            </div>
+            {searchParam && (
+              <div>
+                Search query: "<span className="text-brand-orange font-bold">{searchParam}</span>"
+              </div>
+            )}
+          </div>
+
+          {/* Grid listing */}
+          {filteredBusinesses.length === 0 ? (
+            <div className="bg-white border border-slate-200 rounded-xl p-12 text-center shadow-sm">
+              <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4 text-slate-400">
+                🏪
+              </div>
+              <h3 className="text-base font-bold text-slate-800 mb-1">No businesses found matching criteria</h3>
+              <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                Try clearing active filters or searching general keywords like electronics, clinic, or restaurant.
+              </p>
+              <button
+                onClick={handleReset}
+                className="mt-5 bg-brand-orange hover:bg-orange-600 text-white font-bold text-xs px-5 py-2 rounded-lg shadow"
+              >
+                Clear Search filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {filteredBusinesses.map((biz) => (
+                <div 
+                  key={biz.id} 
+                  className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all flex flex-col justify-between group border-t-4 border-t-slate-200 hover:border-t-brand-orange"
+                >
+                  
+                  <div>
+                    {/* Visual Banner Block */}
+                    <div className={`h-16 bg-gradient-to-r ${biz.bannerColor} relative p-3 flex justify-between items-end`}>
+                      <span className={`text-[8px] font-bold text-white uppercase px-2 py-0.5 rounded-full backdrop-blur-md border border-white/25 shadow-sm ${
+                        biz.tier === 'Platinum' ? 'bg-amber-500/80' :
+                        biz.tier === 'Gold' ? 'bg-blue-500/80' : 'bg-slate-700/80'
+                      }`}>
+                        ★ {biz.tier}
+                      </span>
+                    </div>
+
+                    {/* Logo Initials Overlap */}
+                    <div className="px-5 pt-3 flex gap-3.5 relative">
+                      <div className={`w-12 h-12 rounded-xl ${biz.logoColor} text-white flex items-center justify-center font-extrabold text-lg uppercase shadow border-2 border-white -mt-7 relative z-10 shrink-0`}>
+                        {biz.name.substring(0, 2)}
+                      </div>
+                      
+                      <div className="flex-1">
+                        <div className="flex items-center gap-1">
+                          <h3 className="text-sm font-bold text-slate-900 group-hover:text-brand-orange truncate max-w-[160px] transition-colors">
+                            <Link to={`/businesses/detail/${biz.id}`}>{biz.name}</Link>
+                          </h3>
+                          {biz.verified && (
+                            <ShieldCheck className="w-4 h-4 text-brand-orange fill-orange-50 shrink-0" />
+                          )}
+                        </div>
+                        <p className="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-0.5">
+                          {biz.category}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Description body */}
+                    <div className="px-5 py-3">
+                      <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">
+                        {biz.description}
+                      </p>
+                      
+                      {/* Rating panel */}
+                      <div className="flex items-center gap-2 mt-3.5">
+                        <div className="flex items-center gap-0.5 text-brand-orange">
+                          <Star className="w-3.5 h-3.5 fill-brand-orange" />
+                          <span className="text-xs font-bold text-slate-800">{biz.rating}</span>
+                        </div>
+                        <span className="text-[10px] text-slate-400">({biz.reviewsCount} reviews)</span>
+                        <span className="text-slate-200">|</span>
+                        <span className="text-[10px] text-slate-500 font-medium truncate flex items-center gap-0.5">
+                          <MapPin className="w-3 h-3 text-slate-400" /> {biz.location}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Footer CTAs */}
+                  <div className="bg-slate-50/50 px-5 py-3 border-t border-slate-100 flex justify-between items-center gap-4 mt-4">
+                    <span className="text-[9px] text-slate-400 uppercase font-bold tracking-wider">verified partner</span>
+                    <div className="flex gap-1.5">
+                      <Link
+                        to={`/businesses/detail/${biz.id}`}
+                        className="text-[10px] border border-slate-200 text-slate-650 hover:bg-slate-50 font-bold px-3 py-1.5 rounded-lg transition-colors"
+                      >
+                        Details
+                      </Link>
+                      <Link
+                        to={`/businesses/detail/${biz.id}?quote=true`}
+                        className="text-[10px] bg-brand-orange hover:bg-orange-600 text-white font-bold px-3 py-1.5 rounded-lg transition-all"
+                      >
+                        Get Quote
+                      </Link>
+                    </div>
+                  </div>
+
+                </div>
+              ))}
+            </div>
+          )}
+
+        </div>
+
+      </div>
+
+    </div>
+  );
+};
+export default Businesses;
