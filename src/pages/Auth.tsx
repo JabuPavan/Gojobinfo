@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ShieldCheck, Mail, Phone, Lock, Eye, EyeOff, Sparkles, User, Wrench, Building, Briefcase } from 'lucide-react';
+import { Mail, Phone, Lock, Eye, EyeOff, User, Wrench, Building, Briefcase } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
 import type { UserRole } from '../store/useAuthStore';
 import { Logo } from '../brand/Logo';
@@ -72,7 +72,7 @@ export const Auth: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-md mx-auto px-4 py-12 flex flex-col min-h-[500px] my-8">
+    <div className="max-w-md w-full mx-auto px-4 py-8 sm:py-12 flex flex-col min-h-[500px] my-4 sm:my-8">
       
       {/* Header with Logo and Single Line Quote */}
       <div className="flex flex-col items-center text-center mb-8">

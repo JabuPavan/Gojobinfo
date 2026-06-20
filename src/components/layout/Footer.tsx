@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin } from 'lucide-react';
 import { Logo } from '../../brand/Logo';
 
 export const Footer: React.FC = () => {
@@ -8,10 +7,10 @@ export const Footer: React.FC = () => {
     <footer className="bg-slate-900 text-slate-400 pt-10 pb-8 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-6 mb-8 text-center md:text-left">
           
           {/* Logo and Socials */}
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
             <Link to="/">
               <Logo lightHeader={false} />
             </Link>
@@ -33,7 +32,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Main Links Only */}
-          <div className="flex flex-wrap justify-center gap-6 text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 sm:gap-6 text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
             <Link to="/" className="hover:text-slate-300 transition-colors">Home</Link>
             <Link to="/services" className="hover:text-slate-300 transition-colors">Services</Link>
             <Link to="/businesses" className="hover:text-slate-300 transition-colors">Businesses</Link>
@@ -45,9 +44,9 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Lower footer section */}
-        <div className="border-t border-slate-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+        <div className="border-t border-slate-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-center md:text-left">
           <p>© 2026 GOJOBINFORMATION. All rights reserved.</p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
           </div>

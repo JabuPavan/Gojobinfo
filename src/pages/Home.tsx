@@ -115,7 +115,7 @@ export const Home: React.FC = () => {
           {/* Search Box Card */}
           <div className="editorial-panel rounded-none p-4 sm:p-5 text-black max-w-4xl mx-auto mt-10">
             {/* Search Tabs */}
-            <div className="flex gap-2 mb-4 border-b border-slate-200 pb-3">
+            <div className="flex flex-wrap gap-2 mb-4 border-b border-slate-200 pb-3">
               {[
                 { id: 'jobs', label: 'Find Jobs', icon: Briefcase, color: 'text-slate-600' },
                 { id: 'services', label: 'Hire Professionals', icon: Wrench, color: 'text-slate-600' },
@@ -181,7 +181,7 @@ export const Home: React.FC = () => {
 
       {/* 2. Statistics Counter Section */}
       <section className="py-10 px-4 border-b border-slate-200 bg-slate-50">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center editorial-panel rounded-none py-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 text-center editorial-panel rounded-none py-6 sm:py-8">
           {[
             { value: counters.jobs, suffix: '+', label: 'Job Openings', desc: 'Active vacancies posted daily' },
             { value: counters.professionals, suffix: '+', label: 'Service Experts', desc: 'Vetted, certified professionals' },
@@ -244,8 +244,8 @@ export const Home: React.FC = () => {
                 Explore Vacant Job Roles
               </h2>
             </div>
-            <div className="flex items-center gap-4">
-              <Link to="/jobs" className="text-slate-600 hover:text-black font-bold text-sm flex items-center gap-1 mr-2">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-4 sm:mt-0">
+              <Link to="/jobs" className="text-slate-600 hover:text-black font-bold text-sm flex items-center gap-1 sm:mr-2">
                 All Jobs <ArrowRight className="w-4 h-4" />
               </Link>
               <div className="flex gap-2">
@@ -318,7 +318,7 @@ export const Home: React.FC = () => {
 
       {/* 5. Featured Professionals & Businesses */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 border-b border-slate-200">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           
           {/* Top Service Professionals */}
           <div>
@@ -334,7 +334,7 @@ export const Home: React.FC = () => {
             
             <div className="flex flex-col gap-4">
               {professionals.slice(0, 3).map((prof) => (
-                <div key={prof.id} className="editorial-panel rounded-none p-4 flex gap-4 hover:border-black transition-colors relative group">
+                <div key={prof.id} className="editorial-panel rounded-none p-4 flex flex-col sm:flex-row gap-4 hover:border-black transition-colors relative group">
                   {prof.verified && (
                     <span className="absolute top-3 right-3 flex items-center gap-0.5 bg-black border border-black text-white text-[9px] font-bold px-1.5 py-0.5 rounded-none uppercase">
                       <ShieldCheck className="w-3 h-3 text-white" /> Verified
@@ -346,16 +346,16 @@ export const Home: React.FC = () => {
                       <Link to={`/services/profile/${prof.id}`}>{prof.name}</Link>
                     </h4>
                     <p className="text-xs text-slate-500 font-medium mt-0.5">{prof.category}</p>
-                    <div className="flex items-center gap-1.5 mt-2">
+                    <div className="flex flex-wrap items-center gap-1.5 mt-2">
                       <div className="flex items-center gap-0.5 text-brand-orange">
                         <Star className="w-3.5 h-3.5 fill-brand-orange" />
                         <span className="text-xs font-bold text-slate-800">{prof.rating}</span>
                       </div>
                       <span className="text-[10px] text-slate-400">({prof.reviewsCount} reviews)</span>
-                      <span className="text-[10px] text-slate-300">|</span>
+                      <span className="text-[10px] text-slate-300 hidden sm:inline">|</span>
                       <span className="text-[10px] text-slate-500 font-medium">Exp: {prof.experience} yrs</span>
                     </div>
-                    <div className="flex items-center justify-between mt-3.5 pt-3 border-t border-slate-100">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-3.5 pt-3 border-t border-slate-100">
                       <span className="text-xs font-bold text-slate-700">₹{prof.pricePerHour}/hr</span>
                       <div className="flex gap-2">
                         <Link 
@@ -407,7 +407,7 @@ export const Home: React.FC = () => {
                       <Link to={`/businesses/detail/${biz.id}`}>{biz.name}</Link>
                     </h4>
                     <p className="text-xs text-slate-500 font-medium mt-0.5">{biz.category}</p>
-                    <div className="flex items-center gap-1.5 mt-2">
+                    <div className="flex flex-wrap items-center gap-1.5 mt-2">
                       <div className="flex items-center gap-0.5 text-brand-orange">
                         <Star className="w-3.5 h-3.5 fill-brand-orange" />
                         <span className="text-xs font-bold text-slate-800">{biz.rating}</span>
@@ -416,7 +416,7 @@ export const Home: React.FC = () => {
                       <span className="text-[10px] text-slate-300">|</span>
                       <span className="text-[10px] text-slate-500 truncate max-w-[120px]">{biz.location}</span>
                     </div>
-                    <div className="flex items-center justify-between mt-3.5 pt-3 border-t border-slate-100">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-3.5 pt-3 border-t border-slate-100">
                       <span className="text-[10px] text-slate-400 italic">Verified Partner</span>
                       <div className="flex gap-2">
                         <Link 
