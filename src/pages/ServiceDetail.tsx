@@ -130,7 +130,7 @@ export const ServiceDetail: React.FC = () => {
         <div className="lg:col-span-2 flex flex-col gap-6 order-2 lg:order-1">
           
           {/* Header Bio Card */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm relative">
+          <div className="editorial-panel rounded-none p-6 relative">
             {professional.verified && (
               <span className="absolute top-6 right-6 flex items-center gap-1 bg-blue-50 text-brand-blue border border-blue-100 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                 <ShieldCheck className="w-4 h-4 fill-blue-50 text-brand-blue" /> Vetted Provider
@@ -138,9 +138,7 @@ export const ServiceDetail: React.FC = () => {
             )}
             
             <div className="flex flex-col sm:flex-row gap-5 items-start">
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-brand-blue via-indigo-600 to-brand-teal text-white flex items-center justify-center font-extrabold text-3xl shadow shadow-indigo-200">
-                {professional.avatar}
-              </div>
+              <img src={professional.avatarUrl} alt={professional.name} className="w-20 h-20 object-cover border border-slate-200 shrink-0 img-editorial" />
               <div>
                 <h1 className="text-2xl font-extrabold text-slate-900 leading-tight">
                   {professional.name}
@@ -173,7 +171,7 @@ export const ServiceDetail: React.FC = () => {
           </div>
 
           {/* Skills & Accreditations */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+          <div className="editorial-panel rounded-none p-6">
             <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4">Qualifications & Skills</h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -210,7 +208,7 @@ export const ServiceDetail: React.FC = () => {
           </div>
 
           {/* Portfolio Gallery Colors slider */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+          <div className="editorial-panel rounded-none p-6">
             <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4">Project Gallery</h3>
             <div className="grid grid-cols-3 gap-4">
               {professional.portfolio.map((color, i) => (
@@ -225,7 +223,7 @@ export const ServiceDetail: React.FC = () => {
           </div>
 
           {/* Reviews Rating Feedback section */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+          <div className="editorial-panel rounded-none p-6">
             <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-6">Customer Reviews</h3>
             
             {/* Reviews List */}
@@ -317,7 +315,7 @@ export const ServiceDetail: React.FC = () => {
 
         {/* Right Column: Sticky Booking Sidecard */}
         <div className="lg:col-span-1 order-1 lg:order-2">
-          <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm sticky top-24 h-fit">
+          <div className="editorial-panel rounded-none p-5 sticky top-24 h-fit">
             <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wider mb-4 border-b border-slate-100 pb-2.5">
               Book Appointment
             </h3>
@@ -349,9 +347,9 @@ export const ServiceDetail: React.FC = () => {
                       key={day.iso}
                       type="button"
                       onClick={() => setActiveDate(day.iso)}
-                      className={`flex flex-col items-center justify-center p-2 rounded-lg border text-center transition-all ${
+                      className={`flex flex-col items-center justify-center p-2 rounded-none border text-center transition-all ${
                         active 
-                          ? 'border-brand-teal bg-teal-50/20 text-brand-teal font-extrabold shadow-sm' 
+                          ? 'border-black bg-black text-white font-extrabold shadow-none' 
                           : 'border-slate-200 text-slate-650 hover:bg-slate-50'
                       }`}
                     >
@@ -378,9 +376,9 @@ export const ServiceDetail: React.FC = () => {
                       key={slot}
                       type="button"
                       onClick={() => setActiveSlot(slot)}
-                      className={`w-full p-2.5 rounded-lg border text-left text-xs font-semibold flex justify-between items-center transition-all ${
+                      className={`w-full p-2.5 rounded-none border text-left text-xs font-semibold flex justify-between items-center transition-all ${
                         active 
-                          ? 'border-brand-teal bg-teal-50/20 text-brand-teal font-extrabold shadow-sm' 
+                          ? 'border-black bg-black text-white font-extrabold shadow-none' 
                           : 'border-slate-200 text-slate-600 hover:bg-slate-50'
                       }`}
                     >
@@ -412,10 +410,10 @@ export const ServiceDetail: React.FC = () => {
             <button
               onClick={handleProceedBooking}
               disabled={professional.availability === 'Booked'}
-              className={`w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-white flex justify-center items-center gap-1.5 shadow-md ${
+              className={`w-full py-3 rounded-none font-bold text-xs uppercase tracking-wider transition-all text-white flex justify-center items-center gap-1.5 shadow-none border border-black ${
                 professional.availability === 'Booked' 
-                  ? 'bg-slate-350 shadow-none cursor-not-allowed' 
-                  : 'bg-brand-teal hover:bg-teal-700 shadow-teal-500/10 active:scale-95'
+                  ? 'bg-slate-350 border-slate-350 cursor-not-allowed text-slate-500' 
+                  : 'bg-black hover:bg-slate-800 active:scale-95'
               }`}
             >
               ⚡ Proceed to Checkout

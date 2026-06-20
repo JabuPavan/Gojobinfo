@@ -84,14 +84,14 @@ export const Businesses: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         
         {/* Left Column: Filter Sidebar */}
-        <div className="lg:col-span-1 bg-white border border-slate-200 rounded-xl p-5 shadow-sm h-fit sticky top-24">
-          <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-5">
-            <span className="font-bold text-slate-800 flex items-center gap-1.5 text-sm uppercase tracking-wider">
-              <SlidersHorizontal className="w-4.5 h-4.5 text-brand-orange" /> Filters
+        <div className="lg:col-span-1 editorial-panel rounded-none p-5 h-fit sticky top-24">
+          <div className="flex justify-between items-center border-b border-slate-200 pb-4 mb-5">
+            <span className="font-bold text-slate-900 flex items-center gap-1.5 text-sm uppercase tracking-wider">
+              <SlidersHorizontal className="w-4.5 h-4.5 text-black" /> Filters
             </span>
             <button
               onClick={handleReset}
-              className="text-xs text-slate-400 hover:text-brand-orange font-bold flex items-center gap-1"
+              className="text-xs text-slate-400 hover:text-black font-bold flex items-center gap-1"
             >
               <RefreshCw className="w-3 h-3" /> Reset
             </button>
@@ -210,13 +210,13 @@ export const Businesses: React.FC = () => {
         <div className="lg:col-span-3">
           
           {/* Result count stats banner */}
-          <div className="bg-white border border-slate-200 rounded-xl p-4 mb-6 flex justify-between items-center shadow-sm text-xs font-semibold text-slate-500">
+          <div className="editorial-panel rounded-none p-4 mb-6 flex justify-between items-center text-xs font-semibold text-slate-500">
             <div>
-              Found <span className="text-slate-800 font-bold">{filteredBusinesses.length}</span> registered businesses
+              Found <span className="text-black font-bold">{filteredBusinesses.length}</span> registered businesses
             </div>
             {searchParam && (
               <div>
-                Search query: "<span className="text-brand-orange font-bold">{searchParam}</span>"
+                Search query: "<span className="text-black font-bold">{searchParam}</span>"
               </div>
             )}
           </div>
@@ -243,33 +243,30 @@ export const Businesses: React.FC = () => {
               {filteredBusinesses.map((biz) => (
                 <div 
                   key={biz.id} 
-                  className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all flex flex-col justify-between group border-t-4 border-t-slate-200 hover:border-t-brand-orange"
+                  className="editorial-panel rounded-none flex flex-col justify-between group border-t-4 border-t-black hover:-translate-y-1 transition-all overflow-hidden"
                 >
                   
                   <div>
                     {/* Visual Banner Block */}
-                    <div className={`h-16 bg-gradient-to-r ${biz.bannerColor} relative p-3 flex justify-between items-end`}>
-                      <span className={`text-[8px] font-bold text-white uppercase px-2 py-0.5 rounded-full backdrop-blur-md border border-white/25 shadow-sm ${
-                        biz.tier === 'Platinum' ? 'bg-amber-500/80' :
-                        biz.tier === 'Gold' ? 'bg-blue-500/80' : 'bg-slate-700/80'
-                      }`}>
+                    <div className="h-28 w-full relative">
+                      <img src={biz.coverUrl} alt={biz.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 img-editorial" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <span className="absolute top-3 right-3 text-[10px] bg-black text-white font-bold px-2 py-1 rounded-none uppercase tracking-wider shadow-sm">
                         ★ {biz.tier}
                       </span>
                     </div>
 
                     {/* Logo Initials Overlap */}
                     <div className="px-5 pt-3 flex gap-3.5 relative">
-                      <div className={`w-12 h-12 rounded-xl ${biz.logoColor} text-white flex items-center justify-center font-extrabold text-lg uppercase shadow border-2 border-white -mt-7 relative z-10 shrink-0`}>
-                        {biz.name.substring(0, 2)}
-                      </div>
+                      <img src={biz.ownerAvatarUrl} alt="Owner" className="w-12 h-12 object-cover border border-slate-200 bg-white -mt-8 relative z-10 shrink-0 img-editorial" />
                       
                       <div className="flex-1">
                         <div className="flex items-center gap-1">
-                          <h3 className="text-sm font-bold text-slate-900 group-hover:text-brand-orange truncate max-w-[160px] transition-colors">
+                          <h3 className="text-sm font-bold text-black truncate max-w-[160px] transition-colors">
                             <Link to={`/businesses/detail/${biz.id}`}>{biz.name}</Link>
                           </h3>
                           {biz.verified && (
-                            <ShieldCheck className="w-4 h-4 text-brand-orange fill-orange-50 shrink-0" />
+                            <ShieldCheck className="w-4 h-4 text-black fill-slate-100 shrink-0" />
                           )}
                         </div>
                         <p className="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-0.5">
@@ -286,9 +283,9 @@ export const Businesses: React.FC = () => {
                       
                       {/* Rating panel */}
                       <div className="flex items-center gap-2 mt-3.5">
-                        <div className="flex items-center gap-0.5 text-brand-orange">
-                          <Star className="w-3.5 h-3.5 fill-brand-orange" />
-                          <span className="text-xs font-bold text-slate-800">{biz.rating}</span>
+                        <div className="flex items-center gap-0.5 text-black">
+                          <Star className="w-3.5 h-3.5 fill-black" />
+                          <span className="text-xs font-bold text-black">{biz.rating}</span>
                         </div>
                         <span className="text-[10px] text-slate-400">({biz.reviewsCount} reviews)</span>
                         <span className="text-slate-200">|</span>
@@ -305,13 +302,13 @@ export const Businesses: React.FC = () => {
                     <div className="flex gap-1.5">
                       <Link
                         to={`/businesses/detail/${biz.id}`}
-                        className="text-[10px] border border-slate-200 text-slate-650 hover:bg-slate-50 font-bold px-3 py-1.5 rounded-lg transition-colors"
+                        className="text-[10px] border border-black text-black hover:bg-black hover:text-white font-bold px-3 py-1.5 rounded-none transition-colors"
                       >
                         Details
                       </Link>
                       <Link
                         to={`/businesses/detail/${biz.id}?quote=true`}
-                        className="text-[10px] bg-brand-orange hover:bg-orange-600 text-white font-bold px-3 py-1.5 rounded-lg transition-all"
+                        className="text-[10px] bg-black hover:bg-slate-800 text-white font-bold px-3 py-1.5 rounded-none transition-all"
                       >
                         Get Quote
                       </Link>

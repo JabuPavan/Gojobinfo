@@ -105,9 +105,9 @@ export const Services: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         
         {/* Left Column: Filter Sidebar */}
-        <div className="lg:col-span-1 bg-white border border-slate-200 rounded-xl p-5 shadow-sm h-fit sticky top-24">
-          <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-5">
-            <span className="font-bold text-slate-800 flex items-center gap-1.5 text-sm uppercase tracking-wider">
+        <div className="lg:col-span-1 editorial-panel rounded-none p-5 h-fit sticky top-24">
+          <div className="flex justify-between items-center border-b border-slate-200 pb-4 mb-5">
+            <span className="font-bold text-slate-900 flex items-center gap-1.5 text-sm uppercase tracking-wider">
               <SlidersHorizontal className="w-4.5 h-4.5 text-brand-blue" /> Filters
             </span>
             <button
@@ -231,9 +231,9 @@ export const Services: React.FC = () => {
         <div className="lg:col-span-3">
           
           {/* Result Summary Bar */}
-          <div className="bg-white border border-slate-200 rounded-xl p-4 mb-6 flex justify-between items-center shadow-sm text-xs font-semibold text-slate-500">
+          <div className="editorial-panel rounded-none p-4 mb-6 flex justify-between items-center text-xs font-semibold text-slate-500">
             <div>
-              Showing <span className="text-slate-800 font-bold">{filteredProfessionals.length}</span> professionals
+              Showing <span className="text-black font-bold">{filteredProfessionals.length}</span> professionals
             </div>
             {searchParam && (
               <div>
@@ -244,7 +244,7 @@ export const Services: React.FC = () => {
 
           {/* Professionals Grid/List */}
           {filteredProfessionals.length === 0 ? (
-            <div className="bg-white border border-slate-200 rounded-xl p-12 text-center shadow-sm">
+            <div className="editorial-panel rounded-none p-12 text-center">
               <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4 text-slate-400">
                 🔍
               </div>
@@ -264,7 +264,7 @@ export const Services: React.FC = () => {
               {filteredProfessionals.map((prof) => (
                 <div 
                   key={prof.id} 
-                  className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row gap-6 relative border-l-4 border-l-brand-teal"
+                  className="editorial-panel rounded-none p-6 flex flex-col md:flex-row gap-6 relative border-l-4 border-l-black group"
                 >
                   {/* Verified Badge */}
                   {prof.verified && (
@@ -274,15 +274,13 @@ export const Services: React.FC = () => {
                   )}
 
                   {/* Provider Avatar */}
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-brand-blue via-indigo-600 to-brand-teal text-white flex items-center justify-center font-extrabold text-2xl shadow shrink-0">
-                    {prof.avatar}
-                  </div>
+                  <img src={prof.avatarUrl} alt={prof.name} className="w-20 h-20 object-cover border border-slate-200 shrink-0 img-editorial" />
 
                   {/* Provider Info details */}
                   <div className="flex-1 flex flex-col justify-between">
                     <div>
                       <div className="flex flex-col sm:flex-row sm:items-center gap-1.5">
-                        <h3 className="text-lg font-bold text-slate-900 hover:text-brand-blue transition-colors">
+                        <h3 className="text-lg font-bold text-black transition-colors">
                           <Link to={`/services/profile/${prof.id}`}>{prof.name}</Link>
                         </h3>
                         <span className={`w-fit text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
@@ -294,14 +292,14 @@ export const Services: React.FC = () => {
                         </span>
                       </div>
                       
-                      <p className="text-xs text-brand-teal font-bold uppercase tracking-wider mt-0.5">
+                      <p className="text-xs text-black font-bold uppercase tracking-wider mt-0.5">
                         {prof.category}
                       </p>
 
                       <div className="flex flex-wrap items-center gap-3.5 mt-2">
-                        <div className="flex items-center gap-0.5 text-brand-orange">
-                          <Star className="w-4 h-4 fill-brand-orange" />
-                          <span className="text-xs font-bold text-slate-800">{prof.rating}</span>
+                        <div className="flex items-center gap-0.5 text-black">
+                          <Star className="w-4 h-4 fill-black" />
+                          <span className="text-xs font-bold text-black">{prof.rating}</span>
                         </div>
                         <span className="text-xs text-slate-400">({prof.reviewsCount} verified reviews)</span>
                         <span className="text-slate-200">|</span>
@@ -337,17 +335,17 @@ export const Services: React.FC = () => {
                       <div className="flex gap-2">
                         <Link 
                           to={`/services/profile/${prof.id}`}
-                          className="px-4 py-2 border border-slate-200 text-slate-700 hover:bg-slate-50 font-bold text-xs rounded-lg transition-colors"
+                          className="px-4 py-2 border border-black text-black hover:bg-black hover:text-white font-bold text-xs rounded-none transition-colors"
                         >
                           View Profile
                         </Link>
                         <button
                           onClick={() => handleBookNow(prof.id, prof.category)}
                           disabled={prof.availability === 'Booked'}
-                          className={`px-4 py-2 text-white font-bold text-xs rounded-lg transition-all shadow-md ${
+                          className={`px-4 py-2 text-white font-bold text-xs rounded-none transition-all ${
                             prof.availability === 'Booked' 
-                              ? 'bg-slate-300 shadow-none cursor-not-allowed' 
-                              : 'bg-brand-teal hover:bg-teal-700 shadow-teal-500/10'
+                              ? 'bg-slate-300 cursor-not-allowed' 
+                              : 'bg-black hover:bg-slate-800'
                           }`}
                         >
                           Book Slot Now

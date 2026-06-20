@@ -120,7 +120,7 @@ export const BookingFlow: React.FC = () => {
           <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-slate-200 z-0"></div>
           {/* Active progress bar line fill */}
           <div 
-            className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-brand-teal transition-all duration-300 z-0"
+            className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-black transition-all duration-300 z-0"
             style={{ 
               width: 
                 bookingFlow.activeStep === 3 ? '0%' :
@@ -137,9 +137,9 @@ export const BookingFlow: React.FC = () => {
                 <div 
                   className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all ${
                     isCompleted 
-                      ? 'bg-brand-teal border-brand-teal text-white shadow-sm' 
+                      ? 'bg-black border-black text-white shadow-none' 
                       : isActive 
-                      ? 'bg-white border-brand-teal text-brand-teal font-extrabold scale-110 shadow-lg' 
+                      ? 'bg-white border-black text-black font-extrabold scale-110 shadow-none' 
                       : 'bg-white border-slate-200 text-slate-400'
                   }`}
                 >
@@ -155,7 +155,7 @@ export const BookingFlow: React.FC = () => {
       </div>
 
       {/* Main card contents */}
-      <div className="bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-3">
+      <div className="editorial-panel rounded-none grid grid-cols-1 md:grid-cols-3">
         
         {/* Left Column (2-spans): Form step contents */}
         <div className="md:col-span-2 p-6 sm:p-8 border-b md:border-b-0 md:border-r border-slate-150">
@@ -178,10 +178,10 @@ export const BookingFlow: React.FC = () => {
                         key={day.iso}
                         type="button"
                         onClick={() => selectDate(day.iso)}
-                        className={`flex flex-col items-center justify-center p-2 rounded-lg border text-center transition-all ${
+                        className={`flex flex-col items-center justify-center p-2 rounded-none border text-center transition-all ${
                           active 
-                            ? 'border-brand-teal bg-teal-50/20 text-brand-teal font-extrabold shadow-sm' 
-                            : 'border-slate-200 text-slate-650 hover:bg-slate-55'
+                            ? 'border-black bg-black text-white font-extrabold shadow-none' 
+                            : 'border-slate-200 text-slate-650 hover:bg-slate-50'
                         }`}
                       >
                         <span className="text-[9px] uppercase font-bold text-slate-450">{day.dayName}</span>
@@ -206,14 +206,14 @@ export const BookingFlow: React.FC = () => {
                         key={slot}
                         type="button"
                         onClick={() => selectSlot(slot)}
-                        className={`p-2.5 rounded-lg border text-left text-xs font-semibold flex justify-between items-center transition-all ${
+                        className={`p-2.5 rounded-none border text-left text-xs font-semibold flex justify-between items-center transition-all ${
                           active 
-                            ? 'border-brand-teal bg-teal-50/20 text-brand-teal font-extrabold shadow-sm' 
-                            : 'border-slate-200 text-slate-650 hover:bg-slate-55'
+                            ? 'border-black bg-black text-white font-extrabold shadow-none' 
+                            : 'border-slate-200 text-slate-650 hover:bg-slate-50'
                         }`}
                       >
                         <span>{slot}</span>
-                        {active && <span className="w-2 h-2 rounded-full bg-brand-teal animate-ping"></span>}
+                        {active && <span className="w-2 h-2 rounded-full bg-white"></span>}
                       </button>
                     );
                   })}
@@ -223,10 +223,10 @@ export const BookingFlow: React.FC = () => {
               <button
                 onClick={() => setBookingStep(5)}
                 disabled={!bookingFlow.selectedDate || !bookingFlow.selectedSlot}
-                className={`w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-white flex justify-center items-center shadow-md ${
+                className={`w-full py-3.5 rounded-none font-bold text-xs uppercase tracking-wider transition-all text-white flex justify-center items-center shadow-none ${
                   !bookingFlow.selectedDate || !bookingFlow.selectedSlot
-                    ? 'bg-slate-300 shadow-none cursor-not-allowed'
-                    : 'bg-brand-teal hover:bg-teal-700 active:scale-95'
+                    ? 'bg-slate-300 cursor-not-allowed'
+                    : 'bg-black hover:bg-slate-800 active:scale-95'
                 }`}
               >
                 Proceed to Address Details
@@ -330,7 +330,7 @@ export const BookingFlow: React.FC = () => {
                   </button>
                   <button
                     type="submit"
-                    className="bg-brand-teal hover:bg-teal-700 text-white font-bold text-xs uppercase px-6 py-2.5 rounded-lg shadow active:scale-95 transition-all"
+                    className="bg-black hover:bg-slate-800 text-white font-bold text-xs uppercase px-6 py-2.5 rounded-none shadow-none active:scale-95 transition-all"
                   >
                     Proceed to Payment
                   </button>
@@ -395,7 +395,7 @@ export const BookingFlow: React.FC = () => {
                     
                     <button
                       onClick={handlePaymentSubmit}
-                      className="bg-brand-blue hover:bg-blue-700 text-white font-bold text-xs uppercase px-6 py-3 rounded-lg shadow-lg active:scale-95 transition-all flex items-center gap-1.5"
+                      className="bg-black hover:bg-slate-800 text-white font-bold text-xs uppercase px-6 py-3 rounded-none shadow-none active:scale-95 transition-all flex items-center gap-1.5"
                     >
                       <CreditCard className="w-4 h-4" /> Pay & Confirm Order
                     </button>
@@ -445,7 +445,7 @@ export const BookingFlow: React.FC = () => {
                     resetBookingFlow();
                     navigate('/dashboard/user');
                   }}
-                  className="bg-brand-blue hover:bg-blue-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow transition-all"
+                  className="bg-black hover:bg-slate-800 text-white font-bold text-xs px-5 py-2.5 rounded-none shadow-none transition-all"
                 >
                   Go to Bookings Dashboard
                 </button>
@@ -454,7 +454,7 @@ export const BookingFlow: React.FC = () => {
                     resetBookingFlow();
                     navigate('/');
                   }}
-                  className="border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold text-xs px-5 py-2.5 rounded-lg transition-colors"
+                  className="border border-black text-black hover:bg-black hover:text-white font-bold text-xs px-5 py-2.5 rounded-none transition-colors"
                 >
                   Return Home
                 </button>
@@ -472,9 +472,7 @@ export const BookingFlow: React.FC = () => {
             </h3>
             
             <div className="flex gap-3 mb-5 pb-5 border-b border-slate-200/80">
-              <div className="w-10 h-10 rounded-lg bg-brand-blue text-white flex items-center justify-center font-bold text-xs shadow-inner">
-                {professional.avatar}
-              </div>
+              <img src={professional.avatarUrl} alt={professional.name} className="w-10 h-10 object-cover border border-slate-200 shrink-0 img-editorial" />
               <div>
                 <h4 className="text-xs font-bold text-slate-800">{professional.name}</h4>
                 <p className="text-[10px] text-brand-teal font-semibold uppercase">{professional.category}</p>

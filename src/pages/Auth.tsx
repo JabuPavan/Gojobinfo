@@ -65,58 +65,40 @@ export const Auth: React.FC = () => {
   };
 
   const rolesList: { id: UserRole; label: string; icon: any; color: string }[] = [
-    { id: 'user', label: 'General User', icon: User, color: 'text-blue-600 bg-blue-50 border-blue-200' },
-    { id: 'professional', label: 'Service Expert', icon: Wrench, color: 'text-teal-600 bg-teal-50 border-teal-200' },
-    { id: 'business', label: 'Business Owner', icon: Building, color: 'text-orange-600 bg-orange-50 border-orange-200' },
-    { id: 'recruiter', label: 'Recruiter', icon: Briefcase, color: 'text-purple-600 bg-purple-50 border-purple-200' }
+    { id: 'user', label: 'General User', icon: User, color: 'text-black bg-slate-100 border-slate-200' },
+    { id: 'professional', label: 'Service Expert', icon: Wrench, color: 'text-black bg-slate-100 border-slate-200' },
+    { id: 'business', label: 'Business Owner', icon: Building, color: 'text-black bg-slate-100 border-slate-200' },
+    { id: 'recruiter', label: 'Recruiter', icon: Briefcase, color: 'text-black bg-slate-100 border-slate-200' }
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-16 flex flex-col md:flex-row bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden min-h-[500px] my-8">
+    <div className="max-w-md mx-auto px-4 py-12 flex flex-col min-h-[500px] my-8">
       
-      {/* Left Block: Vector Brand Column */}
-      <div className="md:w-1/2 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-950 text-white p-8 flex flex-col justify-between relative overflow-hidden">
-        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-brand-blue/10 rounded-full blur-2xl"></div>
-        
-        <div>
-          <Logo lightHeader={false} className="mb-6" />
-          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight leading-tight">
-            Connect & Grow Across Our Digital Ecosystem
-          </h2>
-          <p className="text-xs text-slate-400 leading-relaxed mt-3">
-            Register once to access multiple modules. Manage job vacancies, hire certified service providers, list local shops, and accept quote enquiries.
-          </p>
-        </div>
-
-        <div className="border-t border-slate-800 pt-6 mt-8 flex flex-col gap-3">
-          <div className="flex items-center gap-2 text-xs text-slate-300">
-            <ShieldCheck className="w-4.5 h-4.5 text-brand-teal shrink-0" />
-            <span>Secure Enterprise Data Encryption</span>
-          </div>
-          <div className="flex items-center gap-2 text-xs text-slate-300">
-            <Sparkles className="w-4.5 h-4.5 text-brand-orange shrink-0" />
-            <span>Background Verified Provider Vetting</span>
-          </div>
-        </div>
+      {/* Header with Logo and Single Line Quote */}
+      <div className="flex flex-col items-center text-center mb-8">
+        <Logo lightHeader={true} className="mb-4" />
+        <p className="text-sm text-slate-600 font-medium italic">
+          "Your gateway to a complete digital professional ecosystem."
+        </p>
       </div>
 
-      {/* Right Block: Interactive Forms column */}
-      <div className="md:w-1/2 p-6 sm:p-8 flex flex-col justify-center">
+      {/* Interactive Forms Box */}
+      <div className="editorial-panel rounded-none p-6 sm:p-8 flex flex-col justify-center shadow-sm">
         
         {/* Switch Slider */}
-        <div className="flex bg-slate-100 p-1 rounded-xl mb-6 relative">
+        <div className="flex bg-slate-100 p-1 rounded-none mb-6 relative">
           <button
             onClick={() => setIsLoginTab(true)}
-            className={`flex-1 text-center font-bold text-xs py-2 rounded-lg transition-all ${
-              isLoginTab ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500'
+            className={`flex-1 text-center font-bold text-xs py-2 rounded-none transition-all ${
+              isLoginTab ? 'bg-black text-white shadow-none' : 'text-slate-500'
             }`}
           >
             Login
           </button>
           <button
             onClick={() => setIsLoginTab(false)}
-            className={`flex-1 text-center font-bold text-xs py-2 rounded-lg transition-all ${
-              !isLoginTab ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500'
+            className={`flex-1 text-center font-bold text-xs py-2 rounded-none transition-all ${
+              !isLoginTab ? 'bg-black text-white shadow-none' : 'text-slate-500'
             }`}
           >
             Register
@@ -128,13 +110,13 @@ export const Auth: React.FC = () => {
           <div className="flex gap-4 mb-4 border-b border-slate-100 pb-3">
             <button
               onClick={() => setLoginMethod('email')}
-              className={`text-xs font-bold ${loginMethod === 'email' ? 'text-brand-blue border-b-2 border-brand-blue pb-1.5' : 'text-slate-400'}`}
+              className={`text-xs font-bold ${loginMethod === 'email' ? 'text-black border-b-2 border-black pb-1.5' : 'text-slate-400'}`}
             >
               Email Login
             </button>
             <button
               onClick={() => setLoginMethod('phone')}
-              className={`text-xs font-bold ${loginMethod === 'phone' ? 'text-brand-blue border-b-2 border-brand-blue pb-1.5' : 'text-slate-400'}`}
+              className={`text-xs font-bold ${loginMethod === 'phone' ? 'text-black border-b-2 border-black pb-1.5' : 'text-slate-400'}`}
             >
               Mobile OTP
             </button>
@@ -153,7 +135,7 @@ export const Auth: React.FC = () => {
                 placeholder="e.g. Pavan Kumar"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="border border-slate-205 rounded-lg p-2.5 text-xs bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-blue/15 text-slate-705 font-medium"
+                className="border border-slate-200 rounded-none p-2.5 text-xs bg-slate-50 focus:outline-none focus:ring-1 focus:ring-black text-black font-medium"
               />
             </div>
           )}
@@ -162,7 +144,7 @@ export const Auth: React.FC = () => {
           {loginMethod === 'email' || !isLoginTab ? (
             <div className="flex flex-col gap-1">
               <label className="text-[10px] uppercase font-bold text-slate-400 font-semibold">Email Address</label>
-              <div className="flex items-center gap-2 border border-slate-205 rounded-lg px-3 py-2 bg-slate-50 focus-within:ring-2 focus-within:ring-brand-blue/15">
+              <div className="flex items-center gap-2 border border-slate-200 rounded-none px-3 py-2 bg-slate-50 focus-within:ring-1 focus-within:ring-black">
                 <Mail className="w-4 h-4 text-slate-400 shrink-0" />
                 <input
                   type="email"
@@ -170,14 +152,14 @@ export const Auth: React.FC = () => {
                   placeholder="e.g. name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-transparent text-xs focus:outline-none text-slate-805"
+                  className="w-full bg-transparent text-xs focus:outline-none text-black"
                 />
               </div>
             </div>
           ) : (
             <div className="flex flex-col gap-1">
               <label className="text-[10px] uppercase font-bold text-slate-400 font-semibold">Mobile Number</label>
-              <div className="flex items-center gap-2 border border-slate-205 rounded-lg px-3 py-2 bg-slate-50 focus-within:ring-2 focus-within:ring-brand-blue/15">
+              <div className="flex items-center gap-2 border border-slate-200 rounded-none px-3 py-2 bg-slate-50 focus-within:ring-1 focus-within:ring-black">
                 <Phone className="w-4 h-4 text-slate-400 shrink-0" />
                 <input
                   type="tel"
@@ -185,7 +167,7 @@ export const Auth: React.FC = () => {
                   placeholder="e.g. +91 99887 76655"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full bg-transparent text-xs focus:outline-none text-slate-805"
+                  className="w-full bg-transparent text-xs focus:outline-none text-black"
                 />
               </div>
             </div>
@@ -194,7 +176,7 @@ export const Auth: React.FC = () => {
           {/* Password fields */}
           <div className="flex flex-col gap-1">
             <label className="text-[10px] uppercase font-bold text-slate-400">Password</label>
-            <div className="flex items-center gap-2 border border-slate-205 rounded-lg px-3 py-2 bg-slate-50 focus-within:ring-2 focus-within:ring-brand-blue/15">
+            <div className="flex items-center gap-2 border border-slate-200 rounded-none px-3 py-2 bg-slate-50 focus-within:ring-1 focus-within:ring-black">
               <Lock className="w-4 h-4 text-slate-400 shrink-0" />
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -202,7 +184,7 @@ export const Auth: React.FC = () => {
                 placeholder="Enter password..."
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent text-xs focus:outline-none text-slate-805 font-medium"
+                className="w-full bg-transparent text-xs focus:outline-none text-black font-medium"
               />
               <button 
                 type="button" 
@@ -226,13 +208,13 @@ export const Auth: React.FC = () => {
                     key={role.id}
                     type="button"
                     onClick={() => setSelectedRole(role.id)}
-                    className={`p-2.5 border rounded-lg text-left flex items-center gap-2.5 transition-all ${
+                    className={`p-2.5 border rounded-none text-left flex items-center gap-2.5 transition-all ${
                       active 
-                        ? 'border-brand-blue bg-blue-50/10 text-brand-blue font-bold shadow-sm' 
+                        ? 'border-black bg-slate-100 text-black font-bold shadow-none' 
                         : 'border-slate-200 hover:bg-slate-50 text-slate-600'
                     }`}
                   >
-                    <div className={`p-1 rounded ${active ? 'bg-brand-blue text-white' : 'bg-slate-100 text-slate-500'}`}>
+                    <div className={`p-1 rounded-none ${active ? 'bg-black text-white' : 'bg-slate-100 text-slate-500'}`}>
                       <RoleIcon className="w-3.5 h-3.5" />
                     </div>
                     <span className="text-[10px] sm:text-xs font-semibold">{role.label}</span>
@@ -245,7 +227,7 @@ export const Auth: React.FC = () => {
           {/* Submit button */}
           <button
             type="submit"
-            className="w-full bg-brand-blue hover:bg-blue-700 text-white font-bold text-xs uppercase py-3 rounded-lg shadow-lg shadow-blue-500/10 mt-3 transition-all active:scale-95"
+            className="w-full bg-black hover:bg-slate-800 text-white font-bold text-xs uppercase py-3 rounded-none shadow-none mt-3 transition-all active:scale-95"
           >
             {isLoginTab ? 'Login to Portal' : 'Register Account'}
           </button>
@@ -261,7 +243,7 @@ export const Auth: React.FC = () => {
         {/* Mock Google login */}
         <button
           onClick={handleGoogleSignIn}
-          className="w-full border border-slate-250 hover:bg-slate-55 text-slate-700 font-bold text-xs py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 hover:bg-slate-50 shadow-sm"
+          className="w-full border border-slate-200 hover:bg-slate-50 text-black font-bold text-xs py-2.5 rounded-none transition-colors flex items-center justify-center gap-2 shadow-none"
         >
           {/* Simple vector Google G */}
           <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
