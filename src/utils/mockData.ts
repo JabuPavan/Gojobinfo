@@ -5,6 +5,7 @@ export interface ServiceProfessional {
   name: string;
   category: string;
   avatar: string;
+  avatarUrl: string;
   rating: number;
   reviewsCount: number;
   experience: number; // in years
@@ -31,6 +32,8 @@ export interface BusinessListing {
   name: string;
   category: string;
   logoColor: string;
+  coverUrl: string;
+  ownerAvatarUrl: string;
   bannerColor: string;
   rating: number;
   reviewsCount: number;
@@ -56,6 +59,7 @@ export interface JobListing {
   title: string;
   companyName: string;
   companyLogoColor: string;
+  companyLogoUrl: string;
   location: string;
   salaryRange: string;
   experienceRequired: string;
@@ -103,6 +107,7 @@ export const mockProfessionals: ServiceProfessional[] = [
     name: 'Rajesh Kumar',
     category: 'Electricians',
     avatar: 'RK',
+    avatarUrl: 'https://i.pravatar.cc/150?u=prof-1',
     rating: 4.8,
     reviewsCount: 124,
     experience: 8,
@@ -125,6 +130,7 @@ export const mockProfessionals: ServiceProfessional[] = [
     name: 'Suresh Patil',
     category: 'Plumbers',
     avatar: 'SP',
+    avatarUrl: 'https://i.pravatar.cc/150?u=prof-2',
     rating: 4.6,
     reviewsCount: 98,
     experience: 6,
@@ -146,6 +152,7 @@ export const mockProfessionals: ServiceProfessional[] = [
     name: 'Ravi Teja',
     category: 'Drivers',
     avatar: 'RT',
+    avatarUrl: 'https://i.pravatar.cc/150?u=prof-3',
     rating: 4.9,
     reviewsCount: 230,
     experience: 12,
@@ -167,6 +174,7 @@ export const mockProfessionals: ServiceProfessional[] = [
     name: 'Vikram Singh',
     category: 'Carpenters',
     avatar: 'VS',
+    avatarUrl: 'https://i.pravatar.cc/150?u=prof-4',
     rating: 4.7,
     reviewsCount: 76,
     experience: 9,
@@ -188,6 +196,7 @@ export const mockProfessionals: ServiceProfessional[] = [
     name: 'Aisha Rahman',
     category: 'Tutors',
     avatar: 'AR',
+    avatarUrl: 'https://i.pravatar.cc/150?u=prof-5',
     rating: 4.9,
     reviewsCount: 84,
     experience: 5,
@@ -209,6 +218,7 @@ export const mockProfessionals: ServiceProfessional[] = [
     name: 'Deepak Sharma',
     category: 'AC Technicians',
     avatar: 'DS',
+    avatarUrl: 'https://i.pravatar.cc/150?u=prof-6',
     rating: 4.5,
     reviewsCount: 110,
     experience: 7,
@@ -234,6 +244,8 @@ export const mockBusinesses: BusinessListing[] = [
     name: 'Sharma Electronics & Appliances',
     category: 'Electronics Shops',
     logoColor: 'bg-blue-600',
+    coverUrl: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=2070&auto=format&fit=crop',
+    ownerAvatarUrl: 'https://i.pravatar.cc/150?u=biz-1',
     bannerColor: 'from-blue-600 via-indigo-600 to-purple-600',
     rating: 4.7,
     reviewsCount: 312,
@@ -254,6 +266,8 @@ export const mockBusinesses: BusinessListing[] = [
     name: 'Taste of Punjab Restaurant',
     category: 'Restaurants & Cafes',
     logoColor: 'bg-orange-500',
+    coverUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop',
+    ownerAvatarUrl: 'https://i.pravatar.cc/150?u=biz-2',
     bannerColor: 'from-orange-500 via-red-500 to-amber-600',
     rating: 4.5,
     reviewsCount: 520,
@@ -274,6 +288,8 @@ export const mockBusinesses: BusinessListing[] = [
     name: 'Green & Fresh Supermarket',
     category: 'Grocery Stores',
     logoColor: 'bg-emerald-600',
+    coverUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop',
+    ownerAvatarUrl: 'https://i.pravatar.cc/150?u=biz-3',
     bannerColor: 'from-emerald-500 via-teal-600 to-green-600',
     rating: 4.4,
     reviewsCount: 140,
@@ -294,6 +310,8 @@ export const mockBusinesses: BusinessListing[] = [
     name: 'Apex Multispecialty Clinic & Pharmacy',
     category: 'Medical Stores',
     logoColor: 'bg-red-500',
+    coverUrl: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=2073&auto=format&fit=crop',
+    ownerAvatarUrl: 'https://i.pravatar.cc/150?u=biz-4',
     bannerColor: 'from-rose-500 to-rose-700',
     rating: 4.8,
     reviewsCount: 188,
@@ -318,6 +336,7 @@ export const mockJobs: JobListing[] = [
     title: 'Senior Frontend Developer (React)',
     companyName: 'TechVibe Solutions',
     companyLogoColor: 'bg-indigo-600',
+    companyLogoUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=200&auto=format&fit=crop',
     location: 'Bangalore, Karnataka',
     salaryRange: '₹12,00,000 - ₹18,00,000 P.A.',
     experienceRequired: '4 - 7 years',
@@ -343,6 +362,7 @@ export const mockJobs: JobListing[] = [
     title: 'Business Development Manager',
     companyName: 'GrowthLink Agencies',
     companyLogoColor: 'bg-emerald-600',
+    companyLogoUrl: 'https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=200&auto=format&fit=crop',
     location: 'Mumbai, Maharashtra',
     salaryRange: '₹6,00,000 - ₹9,00,000 P.A.',
     experienceRequired: '2 - 5 years',
@@ -367,6 +387,7 @@ export const mockJobs: JobListing[] = [
     title: 'HVAC Maintenance Engineer',
     companyName: 'BreatheEasy Climates',
     companyLogoColor: 'bg-sky-500',
+    companyLogoUrl: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=200&auto=format&fit=crop',
     location: 'Delhi NCR',
     salaryRange: '₹3,50,000 - ₹5,00,000 P.A.',
     experienceRequired: '1 - 3 years',
@@ -390,6 +411,7 @@ export const mockJobs: JobListing[] = [
     title: 'Remote UI/UX Designer',
     companyName: 'PixelCraft Creative',
     companyLogoColor: 'bg-rose-500',
+    companyLogoUrl: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=200&auto=format&fit=crop',
     location: 'Remote (India)',
     salaryRange: '₹8,00,000 - ₹12,00,000 P.A.',
     experienceRequired: '3 - 6 years',

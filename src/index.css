@@ -1,54 +1,70 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-blue: #1D4ED8;
-  --color-brand-teal: #14B8A6;
-  --color-brand-orange: #F97316;
-  --color-brand-light-gray: #F8FAFC;
-  --color-brand-gray: #F1F5F9;
+  --color-brand-blue: #000000; /* Pure black for high-end look */
+  --color-brand-teal: #111111;
+  --color-brand-orange: #FF4500; /* Bright accent */
+  --color-brand-light-gray: #FFFFFF;
+  --color-brand-gray: #F4F4F5;
   
-  --font-sans: "Inter", "Outfit", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Custom styles and smooth animations */
+/* High-End Editorial Background */
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #F8FAFC;
+  background-color: #FAFAFA; /* Off-white, paper-like background */
   font-family: var(--font-sans);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  color: #000000;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Sharp & Clean */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F1F5F9;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
+  background: #E4E4E7;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #A1A1AA;
 }
 
-/* Glassmorphism utility */
-.glassmorphism {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+/* Editorial Panel Utilities */
+.editorial-panel {
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4E7;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Keyframes for animated stats counter */
-@keyframes count-up {
+.editorial-panel:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  border-color: #000000;
+}
+
+/* Grayscale Image Filter Hover */
+.img-editorial {
+  filter: grayscale(100%) contrast(1.1);
+  transition: filter 0.5s ease;
+}
+
+.img-editorial:hover, .group:hover .img-editorial {
+  filter: grayscale(0%) contrast(1);
+}
+
+/* Keyframes */
+@keyframes fade-up {
   from {
     transform: translateY(10px);
     opacity: 0;
@@ -60,5 +76,5 @@ html, body {
 }
 
 .animate-fade-in {
-  animation: count-up 0.5s ease-out forwards;
+  animation: fade-up 0.5s ease-out forwards;
 }

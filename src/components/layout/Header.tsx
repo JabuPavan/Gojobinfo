@@ -59,10 +59,10 @@ export const Header: React.FC = () => {
   ];
 
   return (
-    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 bg-white ${
       scrolled 
-        ? 'bg-white/95 shadow-md border-b border-slate-200/80 backdrop-blur-md' 
-        : 'bg-white/80 border-b border-slate-100/50 backdrop-blur-md'
+        ? 'border-b border-black shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]' 
+        : 'border-b border-slate-200'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
@@ -79,10 +79,10 @@ export const Header: React.FC = () => {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                  `px-3 py-2 text-sm font-semibold transition-all duration-200 ${
                     isActive
-                      ? 'text-brand-blue bg-blue-50/50'
-                      : 'text-slate-600 hover:text-brand-blue hover:bg-slate-50'
+                      ? 'text-black'
+                      : 'text-slate-500 hover:text-black'
                   }`
                 }
               >
@@ -107,7 +107,7 @@ export const Header: React.FC = () => {
                   >
                     <Bell className="w-5 h-5" />
                     {unreadCount > 0 && (
-                      <span className="absolute top-1 right-1 w-4.5 h-4.5 bg-brand-orange text-white text-[9px] font-bold flex items-center justify-center rounded-full animate-pulse">
+                      <span className="absolute top-1 right-1 w-4.5 h-4.5 bg-black text-white text-[9px] font-bold flex items-center justify-center rounded-full">
                         {unreadCount}
                       </span>
                     )}
@@ -115,11 +115,11 @@ export const Header: React.FC = () => {
 
                   {/* Notifications Dropdown Panel */}
                   {showNotifications && (
-                    <div className="absolute right-0 mt-3 w-80 bg-white border border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden transform origin-top-right transition-all">
-                      <div className="px-4 py-3 border-b border-slate-100 bg-slate-55 flex justify-between items-center bg-slate-50">
-                        <span className="font-semibold text-slate-800 text-sm">Notifications</span>
+                    <div className="absolute right-0 mt-3 w-80 editorial-panel z-50 overflow-hidden transform origin-top-right transition-all">
+                      <div className="px-4 py-3 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
+                        <span className="font-semibold text-slate-900 text-sm">Notifications</span>
                         {unreadCount > 0 && (
-                          <span className="text-xs text-brand-blue font-medium">{unreadCount} unread</span>
+                          <span className="text-xs text-black font-medium">{unreadCount} unread</span>
                         )}
                       </div>
                       <div className="max-h-72 overflow-y-auto divide-y divide-slate-100">
@@ -150,22 +150,24 @@ export const Header: React.FC = () => {
                       setShowProfileDropdown(!showProfileDropdown);
                       setShowNotifications(false);
                     }}
-                    className="flex items-center gap-2 pl-2 pr-3 py-1.5 border border-slate-200 hover:border-brand-blue hover:bg-slate-50 rounded-full transition-all duration-200 text-slate-700 font-semibold text-sm"
+                    className="flex items-center gap-2 pl-2 pr-3 py-1.5 border border-slate-200 hover:border-black bg-white rounded-none transition-all duration-200 text-slate-900 font-semibold text-sm"
                   >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-blue to-brand-teal text-white flex items-center justify-center text-xs font-bold shadow-inner">
-                      {user.avatar}
-                    </div>
+                    <img 
+                      src={user.avatarUrl} 
+                      alt={user.name} 
+                      className="w-8 h-8 object-cover border border-slate-200 img-editorial"
+                    />
                     <span className="max-w-[80px] truncate">{user.name}</span>
-                    <ChevronDown className="w-4 h-4 text-slate-400" />
+                    <ChevronDown className="w-4 h-4 text-slate-500" />
                   </button>
 
                   {/* Profile Dropdown Options */}
                   {showProfileDropdown && (
-                    <div className="absolute right-0 mt-3 w-56 bg-white border border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100">
-                      <div className="px-4 py-3 bg-slate-50/50">
+                    <div className="absolute right-0 mt-3 w-56 editorial-panel z-50 overflow-hidden divide-y divide-slate-100">
+                      <div className="px-4 py-3 bg-slate-50">
                         <p className="text-xs text-slate-400">Signed in as</p>
                         <p className="text-sm font-bold text-slate-800 truncate">{user.email}</p>
-                        <span className="inline-block mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-orange bg-orange-50 border border-orange-100 rounded px-1.5 py-0.5">
+                        <span className="inline-block mt-1 text-[10px] uppercase tracking-wider font-semibold text-slate-600 bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5">
                           {user.role} workspace
                         </span>
                       </div>
@@ -203,7 +205,7 @@ export const Header: React.FC = () => {
                 {/* Dashboard Shortcut Button */}
                 <Link
                   to={getDashboardPath(user.role)}
-                  className="bg-brand-blue hover:bg-blue-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg shadow-blue-500/10 flex items-center gap-1.5"
+                  className="bg-black hover:bg-slate-800 text-white font-bold text-sm px-4 py-2 transition-all duration-300 flex items-center gap-1.5"
                 >
                   <LayoutDashboard className="w-4 h-4" />
                   Dashboard
@@ -213,13 +215,13 @@ export const Header: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Link
                   to="/auth"
-                  className="text-slate-600 hover:text-brand-blue text-sm font-bold px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors"
+                  className="text-slate-600 hover:text-black text-sm font-bold px-4 py-2 transition-colors"
                 >
                   Login
                 </Link>
                 <Link
                   to="/auth?register=true"
-                  className="bg-brand-blue hover:bg-blue-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition-all duration-200 shadow-md shadow-blue-500/10"
+                  className="bg-black hover:bg-slate-800 text-white font-bold text-sm px-4 py-2 transition-all duration-300"
                 >
                   Register
                 </Link>

@@ -117,18 +117,18 @@ export const BusinessDetail: React.FC = () => {
       </Link>
 
       {/* Hero Header Banner color card */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm mb-8 relative">
-        <div className={`h-36 sm:h-48 bg-gradient-to-r ${business.bannerColor} relative`}>
-          <span className="absolute top-4 right-4 bg-white/20 border border-white/30 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+      <div className="editorial-panel rounded-none overflow-hidden mb-8 relative">
+        <div className="h-48 sm:h-64 w-full relative">
+          <img src={business.coverUrl} alt="Cover" className="w-full h-full object-cover img-editorial" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <span className="absolute top-4 right-4 bg-black text-white text-[10px] font-bold px-2.5 py-1 rounded-none uppercase">
             ★ {business.tier} Listing
           </span>
         </div>
         
         <div className="p-6 relative flex flex-col sm:flex-row gap-5 items-start">
           {/* Logo initials badge */}
-          <div className={`w-20 h-20 rounded-2xl ${business.logoColor} text-white flex items-center justify-center font-extrabold text-3xl uppercase shadow shadow-orange-100 border-4 border-white -mt-16 sm:-mt-20 relative z-10 shrink-0`}>
-            {business.name.substring(0, 2)}
-          </div>
+          <img src={business.ownerAvatarUrl} alt="Owner" className="w-24 h-24 object-cover border border-slate-200 bg-white -mt-16 sm:-mt-20 relative z-10 shrink-0 img-editorial" />
           
           <div className="flex-1 -mt-1 sm:-mt-2">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2">
@@ -136,13 +136,13 @@ export const BusinessDetail: React.FC = () => {
                 {business.name}
               </h1>
               {business.verified && (
-                <span className="w-fit flex items-center gap-1 bg-orange-50 border border-orange-200 text-brand-orange text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  <ShieldCheck className="w-3.5 h-3.5" /> Verified Store
+                <span className="w-fit flex items-center gap-1 bg-black text-white text-[9px] font-bold px-2 py-0.5 rounded-none uppercase tracking-wider">
+                  <ShieldCheck className="w-3.5 h-3.5 text-white" /> Verified Store
                 </span>
               )}
             </div>
             
-            <p className="text-xs sm:text-sm text-brand-orange font-bold uppercase tracking-wider mt-0.5">
+            <p className="text-xs sm:text-sm text-black font-bold uppercase tracking-wider mt-0.5">
               {business.category}
             </p>
 
@@ -168,7 +168,7 @@ export const BusinessDetail: React.FC = () => {
         <div className="lg:col-span-2 flex flex-col gap-6">
           
           {/* About business block */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+          <div className="editorial-panel rounded-none p-6">
             <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3">About Us</h3>
             <p className="text-xs sm:text-sm text-slate-650 leading-relaxed">
               {business.description}
@@ -186,7 +186,7 @@ export const BusinessDetail: React.FC = () => {
           </div>
 
           {/* Photo gallery */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+          <div className="editorial-panel rounded-none p-6">
             <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4">Store Photo Gallery</h3>
             <div className="grid grid-cols-3 gap-4">
               {business.galleryColors.map((color, i) => (
@@ -201,7 +201,7 @@ export const BusinessDetail: React.FC = () => {
           </div>
 
           {/* Reviews Rating Feed */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+          <div className="editorial-panel rounded-none p-6">
             <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider mb-6">Customer Reviews</h3>
             
             {/* Review List */}
@@ -297,7 +297,7 @@ export const BusinessDetail: React.FC = () => {
 
         {/* Right Column: Contact Details Sidebar Card */}
         <div className="lg:col-span-1">
-          <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm sticky top-24 h-fit">
+          <div className="editorial-panel rounded-none p-5 sticky top-24 h-fit">
             <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wider mb-4 border-b border-slate-100 pb-2.5">
               Contact Vendor
             </h3>
@@ -331,7 +331,7 @@ export const BusinessDetail: React.FC = () => {
               
               <button
                 onClick={handleQuoteClick}
-                className="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold text-xs py-3 rounded-lg shadow-md shadow-orange-500/10 transition-all flex items-center justify-center gap-1.5 active:scale-95"
+                className="w-full bg-black hover:bg-slate-800 text-white font-bold text-xs py-3 rounded-none shadow-none transition-all flex items-center justify-center gap-1.5 active:scale-95"
               >
                 <Send className="w-4 h-4" /> Request Call / Quote
               </button>
