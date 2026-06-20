@@ -19,6 +19,7 @@ export interface UserState {
     phone: string;
     role: UserRole;
     avatar: string;
+    avatarUrl: string;
   } | null;
   savedJobs: string[]; // job IDs
   savedBusinesses: string[]; // business IDs
@@ -72,7 +73,8 @@ export const useAuthStore = create<UserState>((set) => ({
         email,
         phone: '+91 98765 43210',
         role,
-        avatar: uppercaseName.substring(0, 2).toUpperCase()
+        avatar: uppercaseName.substring(0, 2).toUpperCase(),
+        avatarUrl: `https://i.pravatar.cc/150?u=${email}`
       }
     };
   }),

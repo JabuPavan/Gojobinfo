@@ -97,10 +97,10 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-transparent pt-24">
       
       {/* 1. Hero Section */}
-      <section className="relative bg-white text-slate-900 py-20 sm:py-28 px-4 sm:px-6 lg:px-8 border-b border-slate-100">
+      <section className="relative text-slate-900 py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800 border border-slate-200 mb-6 uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" /> Complete Digital Ecosystem
@@ -116,9 +116,9 @@ export const Home: React.FC = () => {
           </p>
 
           {/* Search Box Card */}
-          <div className="bg-white rounded-xl p-4 sm:p-5 text-slate-800 max-w-4xl mx-auto border border-slate-200">
+          <div className="glass-panel rounded-2xl p-4 sm:p-5 text-slate-800 max-w-4xl mx-auto">
             {/* Search Tabs */}
-            <div className="flex gap-2 mb-4 border-b border-slate-100 pb-3">
+            <div className="flex gap-2 mb-4 border-b border-white/40 pb-3">
               {[
                 { id: 'jobs', label: 'Find Jobs', icon: Briefcase, color: 'text-slate-600' },
                 { id: 'services', label: 'Hire Professionals', icon: Wrench, color: 'text-slate-600' },
@@ -173,7 +173,7 @@ export const Home: React.FC = () => {
 
               <button
                 type="submit"
-                className="bg-black hover:bg-slate-800 text-white font-bold text-sm px-6 py-3 rounded-xl transition-all shrink-0 active:scale-95"
+                className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-6 py-3 rounded-xl transition-all duration-300 shrink-0 shadow-[0_4px_14px_rgba(10,132,255,0.4)] hover:shadow-[0_6px_20px_rgba(10,132,255,0.6)] hover:-translate-y-0.5 active:scale-95"
               >
                 Search
               </button>
@@ -183,8 +183,8 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 2. Statistics Counter Section */}
-      <section className="bg-white border-b border-slate-200 py-10 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      <section className="py-10 px-4 mb-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center glass-panel rounded-3xl py-8 shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
           {[
             { value: counters.jobs, suffix: '+', label: 'Job Openings', desc: 'Active vacancies posted daily' },
             { value: counters.professionals, suffix: '+', label: 'Service Experts', desc: 'Vetted, certified professionals' },
@@ -223,12 +223,12 @@ export const Home: React.FC = () => {
               <Link
                 key={cat.id}
                 to={`/services?category=${cat.name}`}
-                className="bg-white border border-slate-200 rounded-xl p-5 text-center flex flex-col items-center justify-center hover:-translate-y-1 hover:border-black transition-all duration-300 group"
+                className="glass-panel rounded-2xl p-5 text-center flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-lg bg-slate-50 text-slate-800 flex items-center justify-center mb-3 group-hover:bg-black group-hover:text-white transition-all">
+                <div className="w-14 h-14 rounded-2xl bg-white/60 text-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
                   <Icon className="w-6 h-6" />
                 </div>
-                <span className="text-sm font-bold text-slate-800 group-hover:text-black transition-colors">
+                <span className="text-sm font-bold text-slate-800 transition-colors">
                   {cat.name}
                 </span>
               </Link>
@@ -238,7 +238,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 4. Latest Jobs Carousel Slider */}
-      <section className="bg-white py-16 px-4 border-y border-slate-100">
+      <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-10">
             <div>
@@ -260,7 +260,7 @@ export const Home: React.FC = () => {
                 </button>
                 <button 
                   onClick={() => scrollCarousel('right')}
-                  className="w-8 h-8 rounded-full border border-slate-300 bg-white flex items-center justify-center hover:bg-slate-50 text-slate-600 transition-colors"
+                  className="w-10 h-10 rounded-full glassmorphism flex items-center justify-center hover:bg-white/80 text-slate-600 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:-translate-y-0.5"
                 >
                   →
                 </button>
@@ -271,20 +271,19 @@ export const Home: React.FC = () => {
           {/* Carousel viewport */}
           <div 
             ref={jobsCarouselRef}
-            className="flex gap-6 overflow-x-auto pb-4 scrollbar-thin scroll-smooth snap-x snap-mandatory"
+            className="flex gap-6 overflow-x-auto pb-8 pt-4 px-2 scrollbar-thin scroll-smooth snap-x snap-mandatory"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {jobs.map((job) => (
               <div 
                 key={job.id} 
-                className="bg-white border border-slate-200 rounded-xl p-6 w-[290px] shrink-0 snap-start flex flex-col justify-between hover:border-black transition-colors"
+                className="glass-panel rounded-2xl p-6 w-[300px] shrink-0 snap-start flex flex-col justify-between hover:-translate-y-2 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-all duration-300 relative overflow-hidden"
               >
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-teal-400"></div>
                 <div>
-                  <div className="flex justify-between items-start mb-4">
-                    <div className={`w-10 h-10 rounded-lg ${job.companyLogoColor} text-white flex items-center justify-center font-bold text-xs uppercase shadow`}>
-                      {job.companyName.substring(0, 2)}
-                    </div>
-                    <span className="text-[10px] bg-slate-100 text-slate-500 font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                  <div className="flex justify-between items-start mb-5">
+                    <img src={job.companyLogoUrl} alt={job.companyName} className="w-12 h-12 rounded-xl object-cover shadow-[0_4px_12px_rgba(0,0,0,0.08)] border border-white/50 bg-white" />
+                    <span className="text-[10px] bg-white/60 backdrop-blur-md border border-white/50 text-slate-600 font-bold px-2 py-1 rounded-full uppercase tracking-wider shadow-sm">
                       {job.jobType}
                     </span>
                   </div>
@@ -306,10 +305,10 @@ export const Home: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-5 flex gap-2">
+                <div className="mt-6 flex gap-2">
                   <Link 
                     to={`/jobs/${job.id}`}
-                    className="flex-1 text-center bg-black hover:bg-slate-800 text-white text-xs font-bold py-2 rounded-lg transition-colors"
+                    className="flex-1 text-center bg-white/60 hover:bg-white border border-white text-slate-800 text-xs font-bold py-2.5 rounded-xl transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)]"
                   >
                     Quick Apply
                   </Link>
@@ -338,15 +337,13 @@ export const Home: React.FC = () => {
             
             <div className="flex flex-col gap-4">
               {professionals.slice(0, 3).map((prof) => (
-                <div key={prof.id} className="bg-white border border-slate-200 rounded-xl p-4 flex gap-4 hover:border-black transition-colors relative">
+                <div key={prof.id} className="glass-panel rounded-xl p-4 flex gap-4 hover:border-black transition-colors relative">
                   {prof.verified && (
                     <span className="absolute top-3 right-3 flex items-center gap-0.5 bg-slate-100 border border-slate-200 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase">
                       <ShieldCheck className="w-3 h-3 text-black" /> Verified
                     </span>
                   )}
-                  <div className="w-16 h-16 rounded-xl bg-black text-white flex items-center justify-center font-bold text-lg shadow-sm shrink-0">
-                    {prof.avatar}
-                  </div>
+                  <img src={prof.avatarUrl} alt={prof.name} className="w-16 h-16 rounded-2xl object-cover shadow-[0_4px_12px_rgba(0,0,0,0.1)] border border-white/50 shrink-0" />
                   <div className="flex-1">
                     <h4 className="text-sm font-bold text-slate-800 hover:text-black">
                       <Link to={`/services/profile/${prof.id}`}>{prof.name}</Link>
@@ -370,15 +367,12 @@ export const Home: React.FC = () => {
                         >
                           View Bio
                         </Link>
-                        <button
-                          onClick={() => {
-                            startBookingFlow(prof.id, prof.category);
-                            navigate('/services/booking');
-                          }}
-                          className="text-[10px] bg-black hover:bg-slate-800 text-white font-bold px-3 py-1.5 rounded-lg transition-all"
+                        <Link 
+                          to={`/services/${prof.id}`}
+                          className="text-[10px] bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg transition-all"
                         >
                           Book Now
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -401,16 +395,17 @@ export const Home: React.FC = () => {
             
             <div className="flex flex-col gap-4">
               {businesses.slice(0, 3).map((biz) => (
-                <div key={biz.id} className="bg-white border border-slate-200 rounded-xl p-4 flex gap-4 hover:border-black transition-colors relative">
-                  {biz.verified && (
-                    <span className="absolute top-3 right-3 flex items-center gap-0.5 bg-slate-100 border border-slate-200 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase">
-                      ★ {biz.tier}
+                <div key={biz.id} className="glass-panel rounded-2xl flex flex-col hover:-translate-y-2 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-all duration-300 relative overflow-hidden group">
+                  <div className="h-32 w-full relative">
+                    <img src={biz.coverUrl} alt={biz.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <span className="absolute top-3 right-3 text-[10px] bg-white/30 backdrop-blur-md border border-white/40 text-white font-bold px-2 py-1 rounded-full uppercase tracking-wider">
+                      {biz.tier}
                     </span>
-                  )}
-                  <div className={`w-16 h-16 rounded-xl ${biz.logoColor} text-white flex items-center justify-center font-bold text-lg shadow-sm shrink-0 uppercase`}>
-                    {biz.name.substring(0, 2)}
                   </div>
-                  <div className="flex-1">
+
+                  <div className="p-6 relative -mt-10">
+                    <img src={biz.ownerAvatarUrl} alt="Owner" className="w-16 h-16 rounded-2xl object-cover shadow-[0_4px_12px_rgba(0,0,0,0.2)] border-2 border-white bg-white mb-3" />
                     <h4 className="text-sm font-bold text-slate-800 hover:text-black">
                       <Link to={`/businesses/detail/${biz.id}`}>{biz.name}</Link>
                     </h4>
@@ -433,9 +428,9 @@ export const Home: React.FC = () => {
                         >
                           View Business
                         </Link>
-                        <Link
-                          to={`/businesses/detail/${biz.id}?quote=true`}
-                          className="text-[10px] bg-black hover:bg-slate-800 text-white font-bold px-3 py-1.5 rounded-lg transition-all"
+                        <Link 
+                          to={`/businesses/${biz.id}`}
+                          className="text-[10px] bg-white/60 hover:bg-white border border-white text-slate-800 font-bold px-3 py-1.5 rounded-lg transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
                         >
                           Get Quote
                         </Link>
@@ -451,10 +446,10 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 6. How GOJOBINFORMATION Works (Switcher) */}
-      <section className="bg-slate-50 text-slate-900 py-16 px-4 border-t border-slate-200">
+      <section className="py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Process Flow</span>
+            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Process Flow</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold mt-1">How The Platform Empowers You</h2>
             <p className="text-slate-600 text-sm mt-3 max-w-lg mx-auto">
               Choose your profile type to see the step-by-step engagement workflow.
@@ -462,7 +457,7 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Tabs */}
-          <div className="flex justify-center border-b border-slate-200 pb-2 mb-10 flex-wrap gap-2">
+          <div className="flex justify-center border-b border-slate-200/50 pb-2 mb-10 flex-wrap gap-2">
             {[
               { id: 'user', label: 'For Users', icon: Users },
               { id: 'professional', label: 'For Professionals', icon: Wrench },
@@ -475,10 +470,10 @@ export const Home: React.FC = () => {
                 <button
                   key={tab.id}
                   onClick={() => setWorksTab(tab.id as any)}
-                  className={`flex items-center gap-1.5 px-4 py-2.5 rounded-t-lg font-bold text-xs sm:text-sm border-b-2 transition-all ${
+                  className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-bold text-xs sm:text-sm transition-all ${
                     active 
-                      ? 'border-black text-black font-extrabold' 
-                      : 'border-transparent text-slate-500 hover:text-black'
+                      ? 'bg-white shadow-[0_4px_12px_rgba(0,0,0,0.05)] text-blue-600' 
+                      : 'text-slate-500 hover:text-slate-800 hover:bg-white/50'
                   }`}
                 >
                   <TabIcon className="w-4 h-4" />
@@ -489,7 +484,7 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Workflow content */}
-          <div className="bg-white border border-slate-200 rounded-xl p-8 shadow-sm">
+          <div className="glass-panel rounded-3xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
             {worksTab === 'user' && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
@@ -560,7 +555,7 @@ export const Home: React.FC = () => {
       {/* 7. Testimonials */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Feedback</span>
+          <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Feedback</span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">What Our Users Say</h2>
         </div>
         
@@ -570,7 +565,7 @@ export const Home: React.FC = () => {
             { name: 'Kiran Reddy', role: 'Job Seeker', rating: 5, quote: 'Applied to TechVibe Solutions via the job portal. The tracking pipeline is so simple—I knew when my resume was viewed, shortlisted, and scheduled. Recommended!' },
             { name: 'Ananya Deshmukh', role: 'Resident Client', rating: 5, quote: 'I booked an electrician slot for house wiring at 10 AM. Rajesh Kumar arrived at 9:55 AM, behaved extremely professionally, and completed the work cleanly. Exceptional platform.' }
           ].map((item, idx) => (
-            <div key={idx} className="bg-white border border-slate-200 rounded-xl p-6 hover:border-black transition-colors">
+            <div key={idx} className="glass-panel rounded-2xl p-6 hover:-translate-y-2 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-all duration-300">
               <div className="flex gap-1 text-brand-orange mb-4">
                 {[...Array(item.rating)].map((_, i) => (
                   <Star key={i} className="w-4.5 h-4.5 fill-brand-orange" />
@@ -587,11 +582,12 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 8. Mobile App Promotion (Future Ready) */}
-      <section className="bg-white py-16 px-4 border-t border-slate-100">
-        <div className="max-w-5xl mx-auto bg-black rounded-xl p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+      <section className="py-16 px-4 mb-20">
+        <div className="max-w-5xl mx-auto bg-gradient-to-br from-slate-900 to-black rounded-[2rem] p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/30 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3"></div>
           
           <div className="max-w-md relative z-10">
-            <span className="inline-block px-3 py-1 rounded bg-slate-800 text-white text-[10px] font-bold uppercase tracking-wider mb-4 border border-slate-700">
+            <span className="inline-block px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-blue-400 text-[10px] font-bold uppercase tracking-wider mb-4 border border-white/10">
               Future Ready
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold mb-4">Download the Mobile App</h2>

@@ -1,54 +1,78 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-blue: #000000;
-  --color-brand-teal: #111827;
-  --color-brand-orange: #374151;
-  --color-brand-light-gray: #FFFFFF;
-  --color-brand-gray: #F9FAFB;
+  --color-brand-blue: #0A84FF; /* Apple-like vibrant blue */
+  --color-brand-teal: #30D158;
+  --color-brand-orange: #FF9F0A;
+  --color-brand-light-gray: #F2F2F7;
+  --color-brand-gray: #E5E5EA;
   
-  --font-sans: "Inter", "Outfit", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Custom styles and smooth animations */
+/* Spatial UI Background and Body */
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #FFFFFF;
+  /* Subtle mesh gradient background */
+  background-color: #f0f4f8;
+  background-image: 
+    radial-gradient(at 40% 20%, hsla(210,100%,93%,1) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(189,100%,86%,1) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(333,100%,94%,1) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, hsla(340,100%,86%,1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(22,100%,89%,1) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, hsla(242,100%,91%,1) 0px, transparent 50%),
+    radial-gradient(at 0% 0%, hsla(343,100%,88%,1) 0px, transparent 50%);
+  background-attachment: fixed;
   font-family: var(--font-sans);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  color: #1c1c1e;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #FFFFFF;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #E5E7EB;
-  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D1D5DB;
+  background: rgba(0, 0, 0, 0.4);
 }
 
-/* Glassmorphism utility - modified to flat for minimalist */
+/* Spatial Glassmorphism Utility */
 .glassmorphism {
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
 }
 
 /* Keyframes for animated stats counter */
 @keyframes count-up {
   from {
-    transform: translateY(10px);
+    transform: translateY(15px);
     opacity: 0;
   }
   to {
@@ -58,5 +82,5 @@ html, body {
 }
 
 .animate-fade-in {
-  animation: count-up 0.5s ease-out forwards;
+  animation: count-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
