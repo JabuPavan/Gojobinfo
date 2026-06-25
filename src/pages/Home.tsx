@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { 
   Search, MapPin, Briefcase, Wrench, Building, Users, Star, 
   ArrowRight, ShieldCheck, Sparkles, Smartphone,
-  Zap, Droplet, Car, Hammer, Paintbrush, BookOpen, Camera, Wind, Gift
+  Zap, Droplet, Car, Hammer, Paintbrush, BookOpen, Camera, Wind, Gift, QrCode, Check
 } from 'lucide-react';
 import { useJobStore } from '../store/useJobStore';
 import { useServiceStore } from '../store/useServiceStore';
@@ -316,6 +316,8 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+
+
       {/* 5. Featured Professionals & Businesses */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -445,7 +447,7 @@ export const Home: React.FC = () => {
 
       {/* 6. How GOJOBINFORMATION Works (Switcher) */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-slate-50">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Process Flow</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold mt-1">How The Platform Empowers You</h2>
@@ -550,6 +552,35 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Subscription/Pricing CTA (Redesigned & Relocated) */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-white">
+        <div className="max-w-7xl mx-auto bg-black text-white p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between shadow-xl relative overflow-hidden">
+          <div className="flex-1 md:pr-8 text-center md:text-left z-10">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block">Available now</span>
+            <h2 className="text-4xl sm:text-5xl font-black mb-2 text-white">₹1 <span className="text-xl sm:text-2xl font-bold text-slate-300 align-middle">only</span></h2>
+            <p className="text-xs sm:text-sm font-bold text-slate-300 uppercase tracking-widest mb-8">Businesses Listed • Verified Profile</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+               <Link to="/subscriptions" className="bg-white text-black font-extrabold uppercase tracking-widest text-xs px-8 py-3.5 hover:bg-slate-200 transition-colors text-center shadow-lg">
+                 Get Started
+               </Link>
+               <Link to="/subscriptions" className="bg-transparent border border-slate-600 text-white font-extrabold uppercase tracking-widest text-xs px-8 py-3.5 hover:border-white transition-colors text-center">
+                 Learn More
+               </Link>
+            </div>
+          </div>
+          <div className="mt-8 md:mt-0 shrink-0 flex flex-col items-center z-10">
+            <div className="bg-white p-3 mb-3 shadow-lg">
+              <QrCode className="w-24 h-24 sm:w-28 sm:h-28 text-black" strokeWidth={1} />
+            </div>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Scan to list business</span>
+          </div>
+          {/* Decorative background element */}
+          <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-slate-900 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+        </div>
+      </section>
+
+
+
       {/* 7. Testimonials */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -583,42 +614,42 @@ export const Home: React.FC = () => {
 
       {/* 8. Mobile App Promotion (Future Ready) */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-slate-50">
-        <div className="max-w-4xl mx-auto editorial-panel p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto editorial-panel p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
           
-          <div className="max-w-md relative z-10">
-            <span className="inline-block px-2.5 py-1 bg-black text-white text-[9px] font-bold uppercase tracking-wider mb-3">
+          <div className="max-w-2xl relative z-10 md:pl-8">
+            <span className="inline-block px-3 py-1.5 bg-black text-white text-[10px] font-bold uppercase tracking-wider mb-4">
               Future Ready
             </span>
-            <h2 className="text-xl sm:text-2xl font-extrabold mb-3 text-black">Download the Mobile App</h2>
-            <p className="text-slate-600 text-xs leading-relaxed mb-5">
+            <h2 className="text-2xl sm:text-4xl font-black mb-4 text-black tracking-tight">Download the Mobile App</h2>
+            <p className="text-slate-600 text-sm leading-relaxed mb-8 max-w-xl font-medium">
               Get real-time job alerts, track service professional live location, and reply to client listings instantly with our upcoming iOS & Android application.
             </p>
-            <div className="flex gap-2">
-              <button className="flex items-center gap-1.5 bg-slate-50 hover:bg-slate-100 text-black px-3 py-2 rounded-none border border-slate-200 transition-all font-bold text-[10px] select-none uppercase">
-                <Smartphone className="w-3.5 h-3.5 text-black" />
+            <div className="flex gap-4">
+              <button className="flex items-center gap-2 bg-white hover:bg-slate-50 text-black px-6 py-3 rounded-none border border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all font-bold text-xs select-none uppercase tracking-wider">
+                <Smartphone className="w-4 h-4 text-black" />
                 App Store
               </button>
-              <button className="flex items-center gap-1.5 bg-slate-50 hover:bg-slate-100 text-black px-3 py-2 rounded-none border border-slate-200 transition-all font-bold text-[10px] select-none uppercase">
-                <Smartphone className="w-3.5 h-3.5 text-black" />
+              <button className="flex items-center gap-2 bg-white hover:bg-slate-50 text-black px-6 py-3 rounded-none border border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all font-bold text-xs select-none uppercase tracking-wider">
+                <Smartphone className="w-4 h-4 text-black" />
                 Google Play
               </button>
             </div>
           </div>
           
-          <div className="shrink-0 flex items-center justify-center relative">
+          <div className="shrink-0 flex items-center justify-center relative md:pr-16">
             {/* Minimal mock smartphone screen */}
-            <div className="w-[140px] h-[220px] bg-white rounded-[20px] border-[3px] border-black p-2 flex flex-col justify-between relative shadow-none">
-              <div className="w-12 h-3 bg-black rounded-b-xl mx-auto absolute top-0 left-1/2 -translate-x-1/2"></div>
+            <div className="w-[180px] h-[300px] bg-white rounded-[28px] border-[4px] border-black p-3 flex flex-col justify-between relative shadow-none rotate-6 hover:rotate-0 transition-transform duration-500">
+              <div className="w-16 h-4 bg-black rounded-b-xl mx-auto absolute top-0 left-1/2 -translate-x-1/2"></div>
               
-              <div className="flex-1 bg-slate-50 rounded-lg p-2 flex flex-col gap-1.5 justify-center text-center mt-3 border border-slate-100">
-                <span className="text-[10px] text-black font-extrabold uppercase tracking-widest">GOJOB</span>
-                <span className="text-[7px] text-slate-500 font-bold uppercase tracking-wider">Mobile Portal</span>
-                <div className="w-6 h-6 rounded-none bg-black mx-auto mt-1 flex items-center justify-center">
-                  <span className="text-white text-[10px]">G</span>
+              <div className="flex-1 bg-slate-50 rounded-lg p-2 flex flex-col gap-2 justify-center text-center mt-5 border border-slate-100">
+                <span className="text-sm text-black font-extrabold uppercase tracking-widest">GOJOB</span>
+                <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Mobile Portal</span>
+                <div className="w-10 h-10 rounded-none bg-black mx-auto mt-3 flex items-center justify-center">
+                  <span className="text-white text-sm font-black">G</span>
                 </div>
               </div>
               
-              <div className="w-8 h-1 bg-slate-300 rounded-full mx-auto mt-2"></div>
+              <div className="w-12 h-1.5 bg-slate-300 rounded-full mx-auto mt-4"></div>
             </div>
           </div>
 

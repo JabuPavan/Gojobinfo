@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { RoleSwitcher } from './components/ui/RoleSwitcher';
+import { WhatsAppChat } from './components/ui/WhatsAppChat';
 import { useAuthStore } from './store/useAuthStore';
 
 // Pages
@@ -113,6 +114,9 @@ export const App: React.FC = () => {
 
         {/* Floating Developer Reviews switcher */}
         <RoleSwitcher />
+
+        {/* Global WhatsApp Chat Assistant */}
+        <WhatsAppChat />
         
       </div>
     </BrowserRouter>
