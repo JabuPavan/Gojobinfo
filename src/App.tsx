@@ -16,12 +16,18 @@ import { Subscriptions } from './pages/Subscriptions';
 import { Jobs } from './pages/Jobs';
 import { JobDetail } from './pages/JobDetail';
 import { Auth } from './pages/Auth';
+import { Advertise } from './pages/Advertise';
+import { Shopping } from './pages/Shopping';
+import { Investors } from './pages/Investors';
+import { Contact } from './pages/Contact';
 
 // Dashboards
 import { UserDashboard } from './pages/dashboards/UserDashboard';
 import { ProfessionalDashboard } from './pages/dashboards/ProfessionalDashboard';
 import { BusinessDashboard } from './pages/dashboards/BusinessDashboard';
 import { RecruiterDashboard } from './pages/dashboards/RecruiterDashboard';
+
+import { ScrollToTop } from './components/layout/ScrollToTop';
 
 // Route Guard Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -38,6 +44,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 export const App: React.FC = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="flex flex-col min-h-screen bg-slate-50/50">
         
         {/* Sticky Global Navigation */}
@@ -62,6 +69,10 @@ export const App: React.FC = () => {
             <Route path="/businesses" element={<Businesses />} />
             <Route path="/businesses/detail/:id" element={<BusinessDetail />} />
             <Route path="/subscriptions" element={<Subscriptions />} />
+            <Route path="/advertise" element={<Advertise />} />
+            <Route path="/shopping" element={<Shopping />} />
+            <Route path="/investors" element={<Investors />} />
+            <Route path="/contact" element={<Contact />} />
 
             {/* Job Portal */}
             <Route path="/jobs" element={<Jobs />} />

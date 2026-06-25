@@ -16,6 +16,7 @@ export const Jobs: React.FC = () => {
   const [jobTypeFilter, setJobTypeFilter] = useState('');
   const [workModeFilter, setWorkModeFilter] = useState('');
   const [experienceFilter, setExperienceFilter] = useState('');
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   // Sync state from URL params
   React.useEffect(() => {
@@ -84,10 +85,20 @@ export const Jobs: React.FC = () => {
       </div>
 
       {/* Main Split */}
+      <div className="flex justify-between items-center mb-4 lg:hidden">
+        <button 
+          onClick={() => setShowMobileFilters(!showMobileFilters)}
+          className="flex items-center gap-2 bg-black text-white px-4 py-2 text-sm font-bold uppercase tracking-wider rounded-none"
+        >
+          <SlidersHorizontal className="w-4 h-4" />
+          {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
+        </button>
+      </div>
+      
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         
         {/* Left Column: Filter Sidebar */}
-        <div className="lg:col-span-1 bg-white border border-slate-200 rounded-xl p-5 shadow-sm h-fit sticky top-24">
+        <div className={`lg:col-span-1 bg-white border border-slate-200 rounded-xl p-5 shadow-sm h-fit lg:sticky lg:top-24 mb-8 lg:mb-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
           <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-5">
             <span className="font-bold text-slate-800 flex items-center gap-1.5 text-sm uppercase tracking-wider">
               <SlidersHorizontal className="w-4.5 h-4.5 text-brand-blue" /> Filters
@@ -242,59 +253,59 @@ export const Jobs: React.FC = () => {
               {filteredJobs.map((job) => (
                 <div 
                   key={job.id}
-                  className="bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row justify-between items-start gap-4"
+                  className="bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row justify-between items-start gap-4"
                 >
                   
                   {/* Left block Info details */}
-                  <div className="flex gap-4">
-                    <div className={`w-12 h-12 rounded-xl ${job.companyLogoColor} text-white flex items-center justify-center font-extrabold text-sm uppercase shadow shrink-0`}>
+                  <div className="flex gap-3 sm:gap-4 w-full sm:w-auto">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl ${job.companyLogoColor} text-white flex items-center justify-center font-extrabold text-xs sm:text-sm uppercase shadow shrink-0`}>
                       {job.companyName.substring(0, 2)}
                     </div>
                     
-                    <div>
-                      <h3 className="text-base font-bold text-slate-900 hover:text-brand-blue transition-colors">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 hover:text-brand-blue transition-colors truncate">
                         <Link to={`/jobs/${job.id}`}>{job.title}</Link>
                       </h3>
-                      <p className="text-xs text-slate-500 font-semibold">{job.companyName}</p>
+                      <p className="text-[11px] sm:text-xs text-slate-500 font-semibold truncate">{job.companyName}</p>
                       
                       {/* Grid tags */}
-                      <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2 mt-3 text-xs text-slate-500">
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-3.5 h-3.5 text-slate-400" /> {job.location}
+                      <div className="flex flex-wrap items-center gap-x-2 sm:gap-x-3.5 gap-y-1.5 mt-2 sm:mt-3 text-[10px] sm:text-xs text-slate-500">
+                        <span className="flex items-center gap-1 shrink-0">
+                          <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400" /> {job.location}
                         </span>
                         <span className="text-slate-200 hidden xs:inline">|</span>
-                        <span className="flex items-center gap-1 font-semibold text-slate-700">
+                        <span className="flex items-center gap-1 font-semibold text-slate-700 shrink-0">
                           {job.salaryRange}
                         </span>
                         <span className="text-slate-200 hidden xs:inline">|</span>
-                        <span className="text-[10px] uppercase font-bold tracking-wider text-slate-450 bg-slate-100 border border-slate-200/50 px-2 py-0.5 rounded-full">
+                        <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider text-slate-500 bg-slate-50 border border-slate-200 px-1.5 sm:px-2 py-0.5 rounded shrink-0">
                           {job.workMode}
                         </span>
                       </div>
 
                       {/* Brief requirement notes snippet */}
-                      <p className="text-[11px] text-slate-500 leading-normal mt-3.5 line-clamp-1 italic">
+                      <p className="text-[10px] sm:text-[11px] text-slate-500 leading-normal mt-2.5 sm:mt-3.5 line-clamp-1 sm:line-clamp-2 italic">
                         Req: {job.requirements[0]}
                       </p>
                     </div>
                   </div>
 
                   {/* Right block details actions */}
-                  <div className="flex sm:flex-col items-end justify-between h-full sm:min-h-[80px] w-full sm:w-fit shrink-0 border-t sm:border-t-0 border-slate-100 pt-3 sm:pt-0">
-                    <span className="text-[10px] text-slate-400 font-semibold flex items-center gap-1">
+                  <div className="flex sm:flex-col items-center sm:items-end justify-between h-full sm:min-h-[80px] w-full sm:w-fit shrink-0 border-t sm:border-t-0 border-slate-100 pt-3 sm:pt-0 mt-1 sm:mt-0">
+                    <span className="text-[9px] sm:text-[10px] text-slate-400 font-semibold flex items-center gap-1">
                       <Clock className="w-3 h-3 text-slate-350" /> Posted {job.postedDaysAgo}d ago
                     </span>
 
-                    <div className="flex gap-1.5 sm:mt-4">
+                    <div className="flex gap-2 sm:mt-4 w-full sm:w-auto">
                       <Link
                         to={`/jobs/${job.id}`}
-                        className="text-[11px] border border-slate-200 text-slate-650 hover:bg-slate-50 font-bold px-3 py-2 rounded-lg transition-colors"
+                        className="flex-1 sm:flex-none text-center text-[10px] sm:text-[11px] border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold px-3 py-2 rounded-lg transition-colors"
                       >
                         Details
                       </Link>
                       <Link
                         to={`/jobs/${job.id}?apply=true`}
-                        className="text-[11px] bg-brand-blue hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-lg shadow transition-all active:scale-95"
+                        className="flex-1 sm:flex-none text-center text-[10px] sm:text-[11px] bg-brand-blue hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-lg shadow transition-all active:scale-95"
                       >
                         Apply Now
                       </Link>
@@ -313,4 +324,5 @@ export const Jobs: React.FC = () => {
     </div>
   );
 };
+
 export default Jobs;
