@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, TrendingUp, Target, ShieldCheck, PieChart, Briefcase, Check, MapPin, Star } from 'lucide-react';
+import { TrendingUp, Target, ShieldCheck, PieChart, Briefcase, Check, MapPin, Star } from 'lucide-react';
 
 export const Investors: React.FC = () => {
   const [formData, setFormData] = useState({
