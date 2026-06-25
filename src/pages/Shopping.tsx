@@ -91,6 +91,7 @@ export const Shopping: React.FC = () => {
                   return (
                     <label 
                       key={idx} 
+                      onClick={() => toggleCategory(cat)}
                       className="flex items-center gap-3 text-sm text-slate-700 hover:text-black hover:bg-slate-50 px-3 py-2.5 transition-colors font-medium cursor-pointer select-none border border-transparent hover:border-slate-100"
                     >
                       {isChecked ? (
