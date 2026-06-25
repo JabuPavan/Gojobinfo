@@ -9,6 +9,7 @@ import { useJobStore } from '../store/useJobStore';
 import { useServiceStore } from '../store/useServiceStore';
 import { useBusinessStore } from '../store/useBusinessStore';
 import { SERVICE_CATEGORIES } from '../utils/mockData';
+import { AdBannerSlider } from '../components/AdBannerSlider';
 
 // Map icon names to Lucide icons
 const categoryIcons: Record<string, any> = {
@@ -97,20 +98,18 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-transparent pt-16">
+    <div className="flex flex-col min-h-screen bg-transparent">
+      <AdBannerSlider />
       
       {/* 1. Hero Section */}
       <section className="relative text-black py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-white">
         <div className="max-w-5xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6 text-slate-900 mt-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.2] mb-8 text-slate-900 mt-6">
             Find Jobs, Hire Professionals <br />
             <span className="text-slate-500">
               & Discover Businesses Near You
             </span>
           </h1>
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-            One single platform connecting ambitious job seekers, certified local service professionals, recruiters, and local commercial businesses.
-          </p>
 
           {/* Search Box Card */}
           <div className="editorial-panel rounded-none p-4 sm:p-5 text-black max-w-4xl mx-auto mt-10">
@@ -180,7 +179,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 2. Statistics Counter Section */}
-      <section className="py-10 px-4 border-b border-slate-200 bg-slate-50">
+      <section className="py-10 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-slate-50">
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 text-center editorial-panel rounded-none py-6 sm:py-8">
           {[
             { value: counters.jobs, suffix: '+', label: 'Job Openings', desc: 'Active vacancies posted daily' },
@@ -200,8 +199,9 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 3. Service Categories Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 border-b border-slate-200">
-        <div className="flex justify-between items-end mb-10">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-end mb-10">
           <div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Marketplace</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
@@ -232,10 +232,10 @@ export const Home: React.FC = () => {
             );
           })}
         </div>
-      </section>
-
+      </div>
+    </section>
       {/* 4. Latest Jobs Carousel Slider */}
-      <section className="py-12 sm:py-16 px-4 border-b border-slate-200 bg-slate-50">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-10">
             <div>
@@ -317,8 +317,9 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 5. Featured Professionals & Businesses */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 border-b border-slate-200">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           
           {/* Top Service Professionals */}
           <div>
@@ -437,13 +438,13 @@ export const Home: React.FC = () => {
                 </div>
               ))}
             </div>
+            </div>
           </div>
-
         </div>
       </section>
 
       {/* 6. How GOJOBINFORMATION Works (Switcher) */}
-      <section className="py-12 sm:py-16 px-4 border-b border-slate-200 bg-slate-50">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-slate-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Process Flow</span>
@@ -550,8 +551,9 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 7. Testimonials */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
           <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Feedback</span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">What Our Users Say</h2>
         </div>
@@ -576,10 +578,11 @@ export const Home: React.FC = () => {
             </div>
           ))}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* 8. Mobile App Promotion (Future Ready) */}
-      <section className="py-12 sm:py-16 px-4 border-b border-slate-200 bg-white">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-slate-50">
         <div className="max-w-4xl mx-auto editorial-panel p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
           
           <div className="max-w-md relative z-10">

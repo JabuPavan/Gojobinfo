@@ -20,6 +20,7 @@ export const Services: React.FC = () => {
   const [maxPrice, setMaxPrice] = useState<number>(500);
   const [requireVerified, setRequireVerified] = useState<boolean>(false);
   const [onlyAvailableToday, setOnlyAvailableToday] = useState<boolean>(false);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   // List of unique categories from mock data
   const categories = useMemo(() => {
@@ -102,10 +103,20 @@ export const Services: React.FC = () => {
       </div>
 
       {/* Main filter-result splits */}
+      <div className="flex justify-between items-center mb-4 lg:hidden">
+        <button 
+          onClick={() => setShowMobileFilters(!showMobileFilters)}
+          className="flex items-center gap-2 bg-black text-white px-4 py-2 text-sm font-bold uppercase tracking-wider rounded-none"
+        >
+          <SlidersHorizontal className="w-4 h-4" />
+          {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
+        </button>
+      </div>
+      
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         
         {/* Left Column: Filter Sidebar */}
-        <div className="lg:col-span-1 editorial-panel rounded-none p-5 h-fit sticky top-24">
+        <div className={`lg:col-span-1 editorial-panel rounded-none p-5 h-fit lg:sticky lg:top-24 mb-8 lg:mb-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
           <div className="flex justify-between items-center border-b border-slate-200 pb-4 mb-5">
             <span className="font-bold text-slate-900 flex items-center gap-1.5 text-sm uppercase tracking-wider">
               <SlidersHorizontal className="w-4.5 h-4.5 text-brand-blue" /> Filters
@@ -264,96 +275,99 @@ export const Services: React.FC = () => {
               {filteredProfessionals.map((prof) => (
                 <div 
                   key={prof.id} 
-                  className="editorial-panel rounded-none p-6 flex flex-col md:flex-row gap-6 relative border-l-4 border-l-black group"
+                  className="editorial-panel rounded-none p-4 sm:p-6 flex flex-col relative border-l-4 border-l-black group"
                 >
-                  {/* Verified Badge */}
-                  {prof.verified && (
-                    <span className="absolute top-4 right-4 flex items-center gap-1 bg-blue-50 text-brand-blue border border-blue-100 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-inner">
-                      <ShieldCheck className="w-3.5 h-3.5 fill-blue-50 text-brand-blue shrink-0" /> Vetted Partner
-                    </span>
-                  )}
+                  
+                  {/* Top horizontal block (Avatar + Info) */}
+                  <div className="flex flex-row gap-3 sm:gap-6">
+                    {/* Provider Avatar */}
+                    <div className="relative shrink-0">
+                      <img src={prof.avatarUrl} alt={prof.name} className="w-16 h-16 sm:w-20 sm:h-20 object-cover border border-slate-200 img-editorial" />
+                      {/* Availability Dot (Mobile optimized) */}
+                      <span className={`absolute -bottom-1 -right-1 w-3.5 h-3.5 sm:w-4 sm:h-4 border-2 border-white rounded-full ${
+                        prof.availability === 'Available Today' ? 'bg-green-500' :
+                        prof.availability === 'Available Tomorrow' ? 'bg-yellow-500' : 'bg-red-500'
+                      }`} title={prof.availability}></span>
+                    </div>
 
-                  {/* Provider Avatar */}
-                  <img src={prof.avatarUrl} alt={prof.name} className="w-20 h-20 object-cover border border-slate-200 shrink-0 img-editorial" />
-
-                  {/* Provider Info details */}
-                  <div className="flex-1 flex flex-col justify-between">
-                    <div>
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-1.5">
-                        <h3 className="text-lg font-bold text-black transition-colors">
+                    {/* Provider Info details */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center justify-between gap-1">
+                        <h3 className="text-sm sm:text-lg font-bold text-black transition-colors truncate pr-2">
                           <Link to={`/services/profile/${prof.id}`}>{prof.name}</Link>
                         </h3>
-                        <span className={`w-fit text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                          prof.availability === 'Available Today' ? 'bg-green-50 text-green-700 border border-green-100' :
-                          prof.availability === 'Available Tomorrow' ? 'bg-yellow-50 text-yellow-700 border border-yellow-100' :
-                          'bg-red-50 text-red-700 border border-red-100'
-                        }`}>
-                          ● {prof.availability}
-                        </span>
+                        {prof.verified && (
+                          <span className="flex items-center bg-blue-50 text-brand-blue border border-blue-100 text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider shadow-inner shrink-0 mt-1 sm:mt-0">
+                            <ShieldCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-blue-50 text-brand-blue shrink-0 mr-0.5" /> Vetted
+                          </span>
+                        )}
                       </div>
                       
-                      <p className="text-xs text-black font-bold uppercase tracking-wider mt-0.5">
+                      <p className="text-[10px] sm:text-xs text-black font-bold uppercase tracking-wider mt-0.5 truncate">
                         {prof.category}
                       </p>
 
-                      <div className="flex flex-wrap items-center gap-3.5 mt-2">
-                        <div className="flex items-center gap-0.5 text-black">
-                          <Star className="w-4 h-4 fill-black" />
-                          <span className="text-xs font-bold text-black">{prof.rating}</span>
+                      <div className="flex flex-wrap items-center gap-x-2 sm:gap-x-3.5 gap-y-1 mt-1.5 sm:mt-2">
+                        <div className="flex items-center gap-0.5 text-black shrink-0">
+                          <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-black" />
+                          <span className="text-[10px] sm:text-xs font-bold text-black">{prof.rating}</span>
                         </div>
-                        <span className="text-xs text-slate-400">({prof.reviewsCount} verified reviews)</span>
-                        <span className="text-slate-200">|</span>
-                        <span className="text-xs text-slate-500 font-semibold flex items-center gap-1">
-                          <MapPin className="w-3.5 h-3.5 text-slate-400" /> {prof.location}
+                        <span className="text-[9px] sm:text-xs text-slate-400 shrink-0">({prof.reviewsCount})</span>
+                        <span className="text-slate-200 hidden xs:inline">|</span>
+                        <span className="text-[9px] sm:text-xs text-slate-500 font-semibold flex items-center gap-0.5 shrink-0">
+                          <MapPin className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-slate-400" /> <span className="truncate max-w-[80px] sm:max-w-none">{prof.location}</span>
                         </span>
-                        <span className="text-slate-200">|</span>
-                        <span className="text-xs text-slate-500 font-semibold">Exp: {prof.experience} Years</span>
-                      </div>
-
-                      <p className="text-xs text-slate-600 leading-relaxed mt-3.5 max-w-2xl">
-                        {prof.bio}
-                      </p>
-
-                      {/* Skills Tags */}
-                      <div className="flex flex-wrap gap-1.5 mt-4">
-                        {prof.skills.map((skill) => (
-                          <span key={skill} className="text-[10px] bg-slate-100 border border-slate-200 text-slate-600 px-2 py-0.5 rounded-md font-semibold">
-                            {skill}
-                          </span>
-                        ))}
+                        <span className="text-slate-200 hidden xs:inline">|</span>
+                        <span className="text-[9px] sm:text-xs text-slate-500 font-semibold shrink-0">Exp: {prof.experience} Yr</span>
                       </div>
                     </div>
-
-                    {/* Booking actions panel footer */}
-                    <div className="border-t border-slate-100 pt-4 mt-5 flex justify-between items-center gap-4">
-                      <div>
-                        <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Service Fee</span>
-                        <div className="text-base font-extrabold text-slate-900 leading-none mt-0.5">
-                          ₹{prof.pricePerHour} <span className="text-xs text-slate-400 font-normal">/ hr</span>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Link 
-                          to={`/services/profile/${prof.id}`}
-                          className="px-4 py-2 border border-black text-black hover:bg-black hover:text-white font-bold text-xs rounded-none transition-colors"
-                        >
-                          View Profile
-                        </Link>
-                        <button
-                          onClick={() => handleBookNow(prof.id, prof.category)}
-                          disabled={prof.availability === 'Booked'}
-                          className={`px-4 py-2 text-white font-bold text-xs rounded-none transition-all ${
-                            prof.availability === 'Booked' 
-                              ? 'bg-slate-300 cursor-not-allowed' 
-                              : 'bg-black hover:bg-slate-800'
-                          }`}
-                        >
-                          Book Slot Now
-                        </button>
-                      </div>
-                    </div>
-
                   </div>
+
+                  {/* Description & Tags block (below avatar block on mobile) */}
+                  <div className="mt-3 sm:mt-4 pl-0 sm:pl-[104px]">
+                    <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed max-w-2xl line-clamp-2 sm:line-clamp-none">
+                      {prof.bio}
+                    </p>
+
+                    {/* Skills Tags */}
+                    <div className="flex flex-wrap gap-1.5 mt-2.5 sm:mt-4">
+                      {prof.skills.map((skill) => (
+                        <span key={skill} className="text-[9px] sm:text-[10px] bg-slate-100 border border-slate-200 text-slate-600 px-1.5 py-0.5 rounded-md font-semibold shrink-0">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Booking actions panel footer */}
+                  <div className="border-t border-slate-100 pt-3 sm:pt-4 mt-4 sm:mt-5 flex justify-between items-center gap-2 sm:gap-4 pl-0 sm:pl-[104px]">
+                    <div>
+                      <span className="text-slate-400 text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Service Fee</span>
+                      <div className="text-sm sm:text-base font-extrabold text-slate-900 leading-none mt-0.5">
+                        ₹{prof.pricePerHour} <span className="text-[10px] sm:text-xs text-slate-400 font-normal">/ hr</span>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 w-full sm:w-auto justify-end">
+                      <Link 
+                        to={`/services/profile/${prof.id}`}
+                        className="flex-1 sm:flex-none text-center px-2 sm:px-4 py-2 border border-black text-black hover:bg-black hover:text-white font-bold text-[10px] sm:text-xs rounded-none transition-colors"
+                      >
+                        Profile
+                      </Link>
+                      <button
+                        onClick={() => handleBookNow(prof.id, prof.category)}
+                        disabled={prof.availability === 'Booked'}
+                        className={`flex-1 sm:flex-none text-center px-2 sm:px-4 py-2 text-white font-bold text-[10px] sm:text-xs rounded-none transition-all ${
+                          prof.availability === 'Booked' 
+                            ? 'bg-slate-300 cursor-not-allowed' 
+                            : 'bg-black hover:bg-slate-800'
+                        }`}
+                      >
+                        Book Slot
+                      </button>
+                    </div>
+                  </div>
+
                 </div>
               ))}
             </div>

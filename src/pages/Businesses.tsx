@@ -18,6 +18,7 @@ export const Businesses: React.FC = () => {
   const [selectedLocation, setSelectedLocation] = useState(locationParam);
   const [minRating, setMinRating] = useState<number>(0);
   const [tierFilter, setTierFilter] = useState<string>('');
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   // Sync state from URL
   React.useEffect(() => {
@@ -81,10 +82,20 @@ export const Businesses: React.FC = () => {
       </div>
 
       {/* Main filter-list layout */}
+      <div className="flex justify-between items-center mb-4 lg:hidden">
+        <button 
+          onClick={() => setShowMobileFilters(!showMobileFilters)}
+          className="flex items-center gap-2 bg-black text-white px-4 py-2 text-sm font-bold uppercase tracking-wider rounded-none"
+        >
+          <SlidersHorizontal className="w-4 h-4" />
+          {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
+        </button>
+      </div>
+      
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         
         {/* Left Column: Filter Sidebar */}
-        <div className="lg:col-span-1 editorial-panel rounded-none p-5 h-fit sticky top-24">
+        <div className={`lg:col-span-1 editorial-panel rounded-none p-5 h-fit lg:sticky lg:top-24 mb-8 lg:mb-0 ${showMobileFilters ? 'block' : 'hidden lg:block'}`}>
           <div className="flex justify-between items-center border-b border-slate-200 pb-4 mb-5">
             <span className="font-bold text-slate-900 flex items-center gap-1.5 text-sm uppercase tracking-wider">
               <SlidersHorizontal className="w-4.5 h-4.5 text-black" /> Filters
@@ -243,61 +254,79 @@ export const Businesses: React.FC = () => {
               {filteredBusinesses.map((biz) => (
                 <div 
                   key={biz.id} 
-                  className="editorial-panel rounded-none flex flex-col justify-between group border-t-4 border-t-black hover:-translate-y-1 transition-all overflow-hidden"
+                  className="editorial-panel rounded-none flex flex-row sm:flex-col justify-between group border-l-4 sm:border-l-0 sm:border-t-4 border-black hover:-translate-y-1 transition-all overflow-hidden"
                 >
                   
-                  <div>
-                    {/* Visual Banner Block */}
-                    <div className="h-28 w-full relative">
-                      <img src={biz.coverUrl} alt={biz.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 img-editorial" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                      <span className="absolute top-3 right-3 text-[10px] bg-black text-white font-bold px-2 py-1 rounded-none uppercase tracking-wider shadow-sm">
+                  <div className="flex flex-row sm:flex-col w-full">
+                    {/* Visual Banner Block - Thumbnail on Mobile, Cover on Desktop */}
+                    <div className="w-1/3 sm:w-full h-auto sm:h-28 relative shrink-0">
+                      <img src={biz.coverUrl} alt={biz.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 img-editorial" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent hidden sm:block"></div>
+                      <span className="absolute top-2 left-2 sm:top-3 sm:right-3 sm:left-auto text-[8px] sm:text-[10px] bg-black text-white font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-none uppercase tracking-wider shadow-sm z-10">
                         ★ {biz.tier}
                       </span>
                     </div>
 
-                    {/* Logo Initials Overlap */}
-                    <div className="px-5 pt-3 flex gap-3.5 relative">
-                      <img src={biz.ownerAvatarUrl} alt="Owner" className="w-12 h-12 object-cover border border-slate-200 bg-white -mt-8 relative z-10 shrink-0 img-editorial" />
-                      
-                      <div className="flex-1">
-                        <div className="flex items-center gap-1">
-                          <h3 className="text-sm font-bold text-black truncate max-w-[160px] transition-colors">
-                            <Link to={`/businesses/detail/${biz.id}`}>{biz.name}</Link>
-                          </h3>
-                          {biz.verified && (
-                            <ShieldCheck className="w-4 h-4 text-black fill-slate-100 shrink-0" />
-                          )}
+                    <div className="flex flex-col flex-1 min-w-0">
+                      {/* Logo Initials Overlap */}
+                      <div className="px-3 sm:px-5 pt-3 sm:pt-3 flex gap-2 sm:gap-3.5 relative">
+                        <img src={biz.ownerAvatarUrl} alt="Owner" className="w-8 h-8 sm:w-12 sm:h-12 object-cover border border-slate-200 bg-white sm:-mt-8 relative z-10 shrink-0 img-editorial hidden sm:block" />
+                        
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1">
+                            <h3 className="text-xs sm:text-sm font-bold text-black truncate transition-colors">
+                              <Link to={`/businesses/detail/${biz.id}`}>{biz.name}</Link>
+                            </h3>
+                            {biz.verified && (
+                              <ShieldCheck className="w-3 h-3 sm:w-4 sm:h-4 text-black fill-slate-100 shrink-0" />
+                            )}
+                          </div>
+                          <p className="text-[9px] sm:text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-0.5">
+                            {biz.category}
+                          </p>
                         </div>
-                        <p className="text-[10px] text-brand-orange font-bold uppercase tracking-wider mt-0.5">
-                          {biz.category}
-                        </p>
                       </div>
-                    </div>
 
-                    {/* Description body */}
-                    <div className="px-5 py-3">
-                      <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">
-                        {biz.description}
-                      </p>
-                      
-                      {/* Rating panel */}
-                      <div className="flex items-center gap-2 mt-3.5">
-                        <div className="flex items-center gap-0.5 text-black">
-                          <Star className="w-3.5 h-3.5 fill-black" />
-                          <span className="text-xs font-bold text-black">{biz.rating}</span>
+                      {/* Description body */}
+                      <div className="px-3 sm:px-5 py-2 sm:py-3">
+                        <p className="text-[10px] sm:text-xs text-slate-500 leading-relaxed line-clamp-2 sm:line-clamp-2">
+                          {biz.description}
+                        </p>
+                        
+                        {/* Rating panel */}
+                        <div className="flex flex-wrap items-center gap-1 sm:gap-2 mt-2 sm:mt-3.5">
+                          <div className="flex items-center gap-0.5 text-black shrink-0">
+                            <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-black" />
+                            <span className="text-[10px] sm:text-xs font-bold text-black">{biz.rating}</span>
+                          </div>
+                          <span className="text-[9px] sm:text-[10px] text-slate-400 shrink-0">({biz.reviewsCount})</span>
+                          <span className="text-slate-200 hidden xs:inline">|</span>
+                          <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium truncate flex items-center gap-0.5 min-w-0">
+                            <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-slate-400 shrink-0" /> <span className="truncate">{biz.location}</span>
+                          </span>
                         </div>
-                        <span className="text-[10px] text-slate-400">({biz.reviewsCount} reviews)</span>
-                        <span className="text-slate-200">|</span>
-                        <span className="text-[10px] text-slate-500 font-medium truncate flex items-center gap-0.5">
-                          <MapPin className="w-3 h-3 text-slate-400" /> {biz.location}
-                        </span>
+                      </div>
+                      
+                      {/* Footer CTAs (Mobile: Inside flex-col, Desktop: Bottom of card) */}
+                      <div className="sm:hidden px-3 pb-3 pt-1 mt-auto flex justify-between items-center gap-2">
+                        <Link
+                          to={`/businesses/detail/${biz.id}`}
+                          className="flex-1 text-center text-[9px] border border-black text-black hover:bg-black hover:text-white font-bold px-2 py-1.5 rounded-none transition-colors"
+                        >
+                          Details
+                        </Link>
+                        <Link
+                          to={`/businesses/detail/${biz.id}?quote=true`}
+                          className="flex-1 text-center text-[9px] bg-black hover:bg-slate-800 text-white font-bold px-2 py-1.5 rounded-none transition-all"
+                        >
+                          Quote
+                        </Link>
                       </div>
                     </div>
                   </div>
 
-                  {/* Footer CTAs */}
-                  <div className="bg-slate-50/50 px-5 py-3 border-t border-slate-100 flex justify-between items-center gap-4 mt-4">
+                  {/* Desktop Footer CTAs */}
+                  <div className="hidden sm:flex bg-slate-50/50 px-5 py-3 border-t border-slate-100 justify-between items-center gap-4 mt-auto">
                     <span className="text-[9px] text-slate-400 uppercase font-bold tracking-wider">verified partner</span>
                     <div className="flex gap-1.5">
                       <Link
