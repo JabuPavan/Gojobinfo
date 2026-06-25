@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { 
   Search, MapPin, Briefcase, Wrench, Building, Users, Star, 
   ArrowRight, ShieldCheck, Sparkles, Smartphone,
-  Zap, Droplet, Car, Hammer, Paintbrush, BookOpen, Camera, Wind, Gift, QrCode, Check
+  Zap, Droplet, Car, Hammer, Paintbrush, BookOpen, Camera, Wind, Gift, QrCode
 } from 'lucide-react';
 import { useJobStore } from '../store/useJobStore';
 import { useServiceStore } from '../store/useServiceStore';
