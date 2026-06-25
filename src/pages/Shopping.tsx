@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, ShoppingCart, Star, ChevronLeft, ChevronRight, Plus, CheckSquare, Square, QrCode, Building, Smartphone, CheckCircle2 } from 'lucide-react';
+import { Search, ShoppingCart, Star, ChevronLeft, ChevronRight, Plus, CheckSquare, Square, QrCode, Building, Smartphone, CheckCircle2, X } from 'lucide-react';
 
 const CATEGORIES = [
   "Fruits & Vegetables", "Fresh Vegetables", "Fresh Fruits", 
@@ -288,91 +288,12 @@ export const Shopping: React.FC = () => {
                       </span>
                     </div>
 
-                    {paymentSuccess ? (
-                      <div className="bg-green-50 border border-green-200 p-6 text-center shadow-inner">
-                        <CheckCircle2 className="w-12 h-12 text-green-600 mx-auto mb-4" />
-                        <h3 className="text-sm font-black text-green-900 uppercase tracking-widest mb-2">Payment Successful</h3>
-                        <p className="text-xs text-green-700 font-bold mb-6">Your order has been placed and is being processed.</p>
-                        <button 
-                          onClick={() => {
-                            setPaymentSuccess(false);
-                            setShowPayment(false);
-                            setCartItems([]);
-                          }}
-                          className="bg-green-600 text-white font-extrabold text-[10px] uppercase tracking-widest px-6 py-3.5 hover:bg-green-700 transition-colors shadow-md w-full"
-                        >
-                          Continue Shopping
-                        </button>
-                      </div>
-                    ) : showPayment ? (
-                      <div className="border border-slate-200 p-4 bg-white shadow-sm">
-                        <div className="grid grid-cols-2 gap-3 mb-5">
-                          <button 
-                            onClick={() => setPaymentTab('upi')}
-                            className={`py-2.5 text-xs font-bold uppercase tracking-wider border transition-all flex items-center justify-center gap-2 ${paymentTab === 'upi' ? 'bg-slate-50 border-black text-black shadow-[2px_2px_0_0_#000]' : 'border-slate-200 text-slate-500 hover:bg-slate-50 hover:border-slate-300'}`}
-                          >
-                            <Smartphone className="w-3.5 h-3.5" /> UPI
-                          </button>
-                          <button 
-                            onClick={() => setPaymentTab('bank')}
-                            className={`py-2.5 text-xs font-bold uppercase tracking-wider border transition-all flex items-center justify-center gap-2 ${paymentTab === 'bank' ? 'bg-slate-50 border-black text-black shadow-[2px_2px_0_0_#000]' : 'border-slate-200 text-slate-500 hover:bg-slate-50 hover:border-slate-300'}`}
-                          >
-                            <Building className="w-3.5 h-3.5" /> Bank
-                          </button>
-                        </div>
-                        
-                        <div className="bg-slate-50 p-6 flex flex-col items-center text-center border border-slate-100 mb-5">
-                          {paymentTab === 'upi' ? (
-                            <>
-                              <div className="bg-white p-3 border-2 border-black mb-4 shadow-sm">
-                                <QrCode className="w-24 h-24 text-black" strokeWidth={1} />
-                              </div>
-                              <div className="flex flex-col gap-1.5 mb-4 w-full">
-                                {cartItems.map((curr) => {
-                                  const p = PRODUCTS.find(x => x.id === curr.id);
-                                  if(!p) return null;
-                                  return <p key={curr.id} className="text-xs text-slate-500 font-bold">Scan to Pay ₹{p.price * curr.qty}</p>
-                                })}
-                              </div>
-                              <p className="text-xs font-black text-black pt-4 border-t border-slate-200 w-full">
-                                UPI: <span className="font-bold text-slate-600">gojobinformation@hdfcbank</span>
-                              </p>
-                            </>
-                          ) : (
-                            <div className="w-full text-left px-2">
-                              <p className="text-xs text-slate-500 font-bold mb-4 uppercase tracking-widest border-b border-slate-200 pb-3">Bank Details</p>
-                              <div className="space-y-3">
-                                <div className="flex justify-between items-center"><span className="text-xs text-slate-500 font-bold">Account:</span> <span className="text-xs font-black text-black">000123456789</span></div>
-                                <div className="flex justify-between items-center"><span className="text-xs text-slate-500 font-bold">IFSC:</span> <span className="text-xs font-black text-black">HDFC0001234</span></div>
-                                <div className="flex justify-between items-center"><span className="text-xs text-slate-500 font-bold">Name:</span> <span className="text-xs font-black text-black">GoJob Info</span></div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                        
-                        <div className="flex flex-col gap-2">
-                          <button 
-                            onClick={() => setPaymentSuccess(true)}
-                            className="w-full bg-black hover:bg-slate-800 text-white font-black text-xs uppercase tracking-widest py-4 transition-colors shadow-md"
-                          >
-                            Complete Payment
-                          </button>
-                          <button 
-                            onClick={() => setShowPayment(false)}
-                            className="w-full bg-transparent text-slate-500 hover:text-black font-bold text-[10px] uppercase tracking-widest py-3 transition-colors border border-transparent hover:border-slate-200"
-                          >
-                            Cancel Checkout
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <button 
-                        onClick={() => setShowPayment(true)}
-                        className="w-full bg-black hover:bg-slate-800 text-white font-black text-xs uppercase tracking-widest py-4 rounded-none transition-colors shadow-md flex items-center justify-center gap-2"
-                      >
-                        Proceed to Checkout
-                      </button>
-                    )}
+                    <button 
+                      onClick={() => setShowPayment(true)}
+                      className="w-full bg-black hover:bg-slate-800 text-white font-black text-xs uppercase tracking-widest py-4 rounded-none transition-colors shadow-md flex items-center justify-center gap-2"
+                    >
+                      Proceed to Checkout
+                    </button>
                   </div>
                 </div>
               )}
@@ -381,6 +302,150 @@ export const Shopping: React.FC = () => {
 
         </div>
       </div>
+
+      {/* Premium Payment Modal Overlay */}
+      {showPayment && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => !paymentSuccess && setShowPayment(false)}></div>
+          
+          <div className="bg-white w-full max-w-4xl relative z-10 shadow-2xl flex flex-col md:flex-row overflow-hidden max-h-[90vh]">
+            
+            {!paymentSuccess && (
+               <button onClick={() => setShowPayment(false)} className="absolute top-4 right-4 z-20 text-slate-400 hover:text-black transition-colors">
+                 <X className="w-6 h-6" />
+               </button>
+            )}
+
+            {paymentSuccess ? (
+              <div className="w-full p-12 py-20 flex flex-col items-center justify-center text-center bg-white">
+                <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mb-6 border-4 border-green-100">
+                  <CheckCircle2 className="w-12 h-12 text-green-500" />
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4 tracking-tight uppercase">Payment Successful</h2>
+                <p className="text-slate-500 font-bold max-w-md mx-auto mb-10 text-sm leading-relaxed">
+                  Thank you for your order! Your payment has been securely processed and your items are being prepared for shipment.
+                </p>
+                <button 
+                  onClick={() => {
+                    setPaymentSuccess(false);
+                    setShowPayment(false);
+                    setCartItems([]);
+                  }}
+                  className="bg-black text-white px-10 py-4 font-black uppercase tracking-widest text-xs hover:bg-slate-800 transition-colors shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px]"
+                >
+                  Continue Shopping
+                </button>
+              </div>
+            ) : (
+              <>
+                {/* Left Side: Order Summary */}
+                <div className="w-full md:w-2/5 bg-slate-50 p-6 sm:p-8 border-r border-slate-200 hidden md:flex flex-col">
+                  <h3 className="text-sm font-black uppercase tracking-widest text-slate-900 mb-6 border-b-2 border-black pb-3">Order Summary</h3>
+                  <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                    <div className="flex flex-col gap-5">
+                      {cartItems.map((cartItem) => {
+                        const product = PRODUCTS.find(p => p.id === cartItem.id);
+                        if (!product) return null;
+                        return (
+                          <div key={cartItem.id} className="flex gap-4">
+                            <img src={product.img} alt={product.name} className="w-16 h-16 object-cover border border-slate-200 bg-white p-1" />
+                            <div className="flex flex-col justify-center">
+                              <h4 className="text-xs font-bold text-slate-900 line-clamp-2 leading-snug">{product.name}</h4>
+                              <p className="text-[10px] text-slate-500 font-bold mt-1 uppercase">Qty: {cartItem.qty}</p>
+                              <p className="text-sm font-black text-brand-orange mt-1">₹{product.price * cartItem.qty}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="pt-6 mt-6 border-t border-slate-200">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Subtotal</span>
+                      <span className="text-sm font-bold text-slate-900">
+                        ₹{cartItems.reduce((acc, curr) => acc + (PRODUCTS.find(x => x.id === curr.id)?.price || 0) * curr.qty, 0)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-black text-black uppercase tracking-widest">Total</span>
+                      <span className="text-2xl font-black text-black">
+                        ₹{cartItems.reduce((acc, curr) => acc + (PRODUCTS.find(x => x.id === curr.id)?.price || 0) * curr.qty, 0)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Side: Payment Flow */}
+                <div className="w-full md:w-3/5 p-6 sm:p-8 lg:p-12 overflow-y-auto bg-white">
+                  <h3 className="text-xl font-black uppercase tracking-widest text-slate-900 mb-8 text-center md:text-left">Secure Checkout</h3>
+                  
+                  <div className="flex gap-4 mb-8">
+                    <button 
+                      onClick={() => setPaymentTab('upi')}
+                      className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider border-2 transition-all flex items-center justify-center gap-2 ${paymentTab === 'upi' ? 'border-black bg-black text-white shadow-[4px_4px_0_0_#000]' : 'border-slate-200 text-slate-500 hover:border-black hover:text-black'}`}
+                    >
+                      <Smartphone className="w-4 h-4" /> UPI Payment
+                    </button>
+                    <button 
+                      onClick={() => setPaymentTab('bank')}
+                      className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider border-2 transition-all flex items-center justify-center gap-2 ${paymentTab === 'bank' ? 'border-black bg-black text-white shadow-[4px_4px_0_0_#000]' : 'border-slate-200 text-slate-500 hover:border-black hover:text-black'}`}
+                    >
+                      <Building className="w-4 h-4" /> Bank Transfer
+                    </button>
+                  </div>
+
+                  <div className="bg-slate-50 border border-slate-200 p-8 mb-8 min-h-[280px] flex flex-col items-center justify-center relative">
+                    {paymentTab === 'upi' ? (
+                      <div className="text-center w-full max-w-sm mx-auto">
+                        <div className="bg-white p-4 border-4 border-black inline-block mb-6 shadow-[8px_8px_0_0_#000] transform -rotate-2">
+                          <QrCode className="w-32 h-32 text-black" strokeWidth={1.5} />
+                        </div>
+                        <h4 className="text-sm font-black text-slate-900 mb-2 uppercase tracking-widest">Scan to Pay</h4>
+                        <div className="bg-white border border-slate-200 p-3 mb-4 mx-auto w-max px-6">
+                          <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Total Payable</p>
+                          <p className="text-2xl font-black text-black">
+                            ₹{cartItems.reduce((acc, curr) => acc + (PRODUCTS.find(x => x.id === curr.id)?.price || 0) * curr.qty, 0)}
+                          </p>
+                        </div>
+                        <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-2">
+                          <span>UPI ID:</span>
+                          <span className="text-black select-all border-b border-black">gojobinformation@hdfcbank</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="w-full max-w-sm mx-auto">
+                        <div className="bg-white border-2 border-black p-8 shadow-[8px_8px_0_0_#000]">
+                          <div className="mb-6 pb-6 border-b border-slate-100">
+                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Beneficiary Name</p>
+                            <p className="text-sm font-black text-slate-900">GoJob Information Pvt Ltd</p>
+                          </div>
+                          <div className="mb-6 pb-6 border-b border-slate-100">
+                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Account Number</p>
+                            <p className="text-lg font-black text-brand-orange tracking-wider">0001 2345 6789</p>
+                          </div>
+                          <div>
+                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">IFSC Code</p>
+                            <p className="text-sm font-black text-slate-900">HDFC0001234</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <button 
+                    onClick={() => setPaymentSuccess(true)}
+                    className="w-full bg-brand-orange hover:bg-black text-white font-black text-sm uppercase tracking-widest py-4 transition-colors shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px]"
+                  >
+                    Confirm Payment
+                  </button>
+
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
