@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, ShoppingCart, Star, ChevronLeft, ChevronRight, Plus, CheckSquare, Square } from 'lucide-react';
+import { Search, ShoppingCart, Star, ChevronLeft, ChevronRight, Plus, CheckSquare, Square, QrCode, Building, Smartphone, CheckCircle2 } from 'lucide-react';
 
 const CATEGORIES = [
   "Fruits & Vegetables", "Fresh Vegetables", "Fresh Fruits", 
@@ -29,6 +29,11 @@ export const Shopping: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [cartItems, setCartItems] = useState<{id: number, qty: number}[]>([]);
   const [selectedCats, setSelectedCats] = useState<string[]>([]);
+  
+  // Payment Flow State
+  const [showPayment, setShowPayment] = useState(false);
+  const [paymentTab, setPaymentTab] = useState<'upi' | 'bank'>('upi');
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const handleAddToCart = (id: number) => {
     setCartItems(prev => {
@@ -282,9 +287,92 @@ export const Shopping: React.FC = () => {
                         }, 0)}
                       </span>
                     </div>
-                    <button className="w-full bg-black hover:bg-slate-800 text-white font-black text-xs uppercase tracking-widest py-4 rounded-none transition-colors shadow-md">
-                      Proceed to Checkout
-                    </button>
+
+                    {paymentSuccess ? (
+                      <div className="bg-green-50 border border-green-200 p-6 text-center shadow-inner">
+                        <CheckCircle2 className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                        <h3 className="text-sm font-black text-green-900 uppercase tracking-widest mb-2">Payment Successful</h3>
+                        <p className="text-xs text-green-700 font-bold mb-6">Your order has been placed and is being processed.</p>
+                        <button 
+                          onClick={() => {
+                            setPaymentSuccess(false);
+                            setShowPayment(false);
+                            setCartItems([]);
+                          }}
+                          className="bg-green-600 text-white font-extrabold text-[10px] uppercase tracking-widest px-6 py-3.5 hover:bg-green-700 transition-colors shadow-md w-full"
+                        >
+                          Continue Shopping
+                        </button>
+                      </div>
+                    ) : showPayment ? (
+                      <div className="border border-slate-200 p-4 bg-white shadow-sm">
+                        <div className="grid grid-cols-2 gap-3 mb-5">
+                          <button 
+                            onClick={() => setPaymentTab('upi')}
+                            className={`py-2.5 text-xs font-bold uppercase tracking-wider border transition-all flex items-center justify-center gap-2 ${paymentTab === 'upi' ? 'bg-slate-50 border-black text-black shadow-[2px_2px_0_0_#000]' : 'border-slate-200 text-slate-500 hover:bg-slate-50 hover:border-slate-300'}`}
+                          >
+                            <Smartphone className="w-3.5 h-3.5" /> UPI
+                          </button>
+                          <button 
+                            onClick={() => setPaymentTab('bank')}
+                            className={`py-2.5 text-xs font-bold uppercase tracking-wider border transition-all flex items-center justify-center gap-2 ${paymentTab === 'bank' ? 'bg-slate-50 border-black text-black shadow-[2px_2px_0_0_#000]' : 'border-slate-200 text-slate-500 hover:bg-slate-50 hover:border-slate-300'}`}
+                          >
+                            <Building className="w-3.5 h-3.5" /> Bank
+                          </button>
+                        </div>
+                        
+                        <div className="bg-slate-50 p-6 flex flex-col items-center text-center border border-slate-100 mb-5">
+                          {paymentTab === 'upi' ? (
+                            <>
+                              <div className="bg-white p-3 border-2 border-black mb-4 shadow-sm">
+                                <QrCode className="w-24 h-24 text-black" strokeWidth={1} />
+                              </div>
+                              <div className="flex flex-col gap-1.5 mb-4 w-full">
+                                {cartItems.map((curr) => {
+                                  const p = PRODUCTS.find(x => x.id === curr.id);
+                                  if(!p) return null;
+                                  return <p key={curr.id} className="text-xs text-slate-500 font-bold">Scan to Pay ₹{p.price * curr.qty}</p>
+                                })}
+                              </div>
+                              <p className="text-xs font-black text-black pt-4 border-t border-slate-200 w-full">
+                                UPI: <span className="font-bold text-slate-600">gojobinformation@hdfcbank</span>
+                              </p>
+                            </>
+                          ) : (
+                            <div className="w-full text-left px-2">
+                              <p className="text-xs text-slate-500 font-bold mb-4 uppercase tracking-widest border-b border-slate-200 pb-3">Bank Details</p>
+                              <div className="space-y-3">
+                                <div className="flex justify-between items-center"><span className="text-xs text-slate-500 font-bold">Account:</span> <span className="text-xs font-black text-black">000123456789</span></div>
+                                <div className="flex justify-between items-center"><span className="text-xs text-slate-500 font-bold">IFSC:</span> <span className="text-xs font-black text-black">HDFC0001234</span></div>
+                                <div className="flex justify-between items-center"><span className="text-xs text-slate-500 font-bold">Name:</span> <span className="text-xs font-black text-black">GoJob Info</span></div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div className="flex flex-col gap-2">
+                          <button 
+                            onClick={() => setPaymentSuccess(true)}
+                            className="w-full bg-black hover:bg-slate-800 text-white font-black text-xs uppercase tracking-widest py-4 transition-colors shadow-md"
+                          >
+                            Complete Payment
+                          </button>
+                          <button 
+                            onClick={() => setShowPayment(false)}
+                            className="w-full bg-transparent text-slate-500 hover:text-black font-bold text-[10px] uppercase tracking-widest py-3 transition-colors border border-transparent hover:border-slate-200"
+                          >
+                            Cancel Checkout
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <button 
+                        onClick={() => setShowPayment(true)}
+                        className="w-full bg-black hover:bg-slate-800 text-white font-black text-xs uppercase tracking-widest py-4 rounded-none transition-colors shadow-md flex items-center justify-center gap-2"
+                      >
+                        Proceed to Checkout
+                      </button>
+                    )}
                   </div>
                 </div>
               )}
